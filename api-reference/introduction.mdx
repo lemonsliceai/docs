@@ -1,25 +1,111 @@
 ---
-title: 'Introduction'
-description: 'Explore the LemonSlice API reference with endpoint documentation'
+title: "Introduction to the LemonSlice API"
+description: "Connect to the LemonSlice API to connect to your agent via a Daily.co room on any webpage."
+---
+
+## Getting Started
+
+Follow these steps to create your first LemonSlice agent session and integrate it into your application.
+
+### 1. Get your API key
+
+Log into your LemonSlice dashboard and copy your **Server API Key**.\
+All API requests must include this header:
+
+```
+X-API-Key: YOUR_API_KEY
+```
+
+### 2. Create a room
+
+Use the `POST /rooms` endpoint to create a Daily room pre-configured with a LemonSlice agent. The agent will automatically join the room once a client connects.
+
+#### Example request
+
+```bash
+curl -X POST https://api.lemonslice.com/rooms \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "agent_id": "YOUR_AGENT_ID" }'
+```
+
+### 3. Join the room from your frontend
+
+Use Daily’s JavaScript SDK to join the room using the URL + token returned from the API.
+
+#### Example (JavaScript)
+
+```javascript
+import DailyIframe from "@daily-co/daily-js";
+
+const callObject = DailyIframe.createCallObject();
+
+await callObject.join({
+  url: room_url,
+  token: token
+});
+```
+
+Once joined, the LemonSlice agent will connect and begin responding in the room.
+
+### 4. Listen for LemonSlice events
+
+LemonSlice uses Daily’s `app-message` channel to push events about the agent, image updates, and errors.
+
+#### Example event handler
+
+```javascript
+useDailyEvent("app-message", (ev) => {
+  if (ev?.data?.type === "bot_ready") {
+    console.log("Agent is ready!");
+  }
+  if (ev?.data?.type === "daily_error") {
+    console.log("An error occurred. ", ev?.data?.err_msg);
+  }
+});
+```
+
+### You're ready to build
+
+With a room created, the agent connected, and event hooks wired up, you're ready to:
+
+- Build interactive video AI apps
+- Customize agent behavior
+- Trigger image changes and respond to events
+
+Explore the rest of the API docs for more capabilities.
+
 ---
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API endpoints are authenticated using an **API key** sent in the `X-API-Key` header.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+```bash
+curl -X POST https://lemonslice.com/api/rooms \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "agent_id": "YOUR_AGENT_ID" }'
 ```
 
+---
 
-## Daily + LemonSlice Events
+## LemonSlice Daily  Events
 
 Hook into the Daily event handler to get LemonSlice specific events
 
+### Event Types
+
+| Event Type               | Description |
+|--------------------------|-------------|
+| **bot_ready**            | Fired when the LemonSlice agent has successfully joined the Daily room and is ready to send/receive audio/video. |
+| **image_created**        | A new agent look has been created for the agent—typically after an `/imagine` request has been made |
+| **image_change_complete**| The agent's look has finished updating and the new look is now active. |
+| **image_change_error**   | The agent failed to update its look. Includes an `err_msg` field with further details. |
+| **daily_error**          | A Daily-related error occurred. Includes `err_msg`. |
+| **video_generation_error** | A failure occurred while generating a video segment or rendering agent output. |
+
+#### Full event handler:
 ```javscript
 useDailyEvent(
   "app-message",
