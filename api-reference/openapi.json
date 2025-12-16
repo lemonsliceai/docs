@@ -55,8 +55,24 @@
               }
             }
           },
-          "403": { "description": "Origin denied." },
-          "404": { "description": "Agent not found." },
+          "403": {
+            "description": "Origin denied.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Agent not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": {}
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error.",
             "content": {
@@ -106,7 +122,6 @@
       },
       "Error": {
         "type": "object",
-        "required": ["message"],
         "properties": {
           "message": {
             "type": "string",
