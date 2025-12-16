@@ -22,7 +22,7 @@
   "paths": {
     "/rooms": {
       "post": {
-        "summary": "Create a Daily room for a LemonSlice agent",
+        "summary": "Create room",
         "description": "Creates a Daily room configured with the given LemonSlice agent.",
         "operationId": "createRoom",
         "requestBody": {
@@ -76,7 +76,7 @@
         "required": ["agent_id"],
         "properties": {
           "agent_id": {
-            "description": "The ID of the LemonSlice Agent.",
+            "description": "The ID of the LemonSlice agent.",
             "type": "string",
             "examples": ["agent_abc123"]
           }
@@ -93,7 +93,7 @@
             "examples": ["https://your-subdomain.daily.co/abc123"]
           },
           "token": {
-            "description": "The Daily auth token for this room.",
+            "description": "The Daily user token.",
             "type": "string"
           },
           "image_url": {

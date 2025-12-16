@@ -27,16 +27,10 @@
           {
             "group": "API documentation",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/openapi.json POST /create_room"
             ]
-          },
-          {
-            "group": "Endpoints",
-            "openapi": {
-              "source": "api-reference/openapi.json"
-            }
           }
-          
         ]
       }
     ]
