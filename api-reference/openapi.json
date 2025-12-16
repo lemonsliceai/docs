@@ -4,26 +4,29 @@
     "title": "LemonSlice",
     "description": "An API that gives access to a LemonSlice agent via a Daily room.",
     "license": {
-      "name": "MIT"
+      "name": "MIT",
+      "identifier": "MIT"
     },
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "http://api.lemonslice.com"
+      "url": "https://lemonslice.com/api/"
     }
   ],
   "security": [
     {
-      "bearerAuth": []
+      "apiKeyAuth": []
     }
   ],
   "paths": {
     "/rooms": {
       "post": {
-        "description": "Creates a daily room with a LemonSlice agent",
+        "summary": "Create a Daily room for a LemonSlice agent",
+        "description": "Creates a Daily room configured with the given LemonSlice agent.",
+        "operationId": "createRoom",
         "requestBody": {
-          "description": "Agent ID of LemonSlice agent",
+          "description": "The LemonSlice agent to use in the room.",
           "content": {
             "application/json": {
               "schema": {
@@ -37,29 +40,28 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "description": "room created",
+          "201": {
+            "description": "Room created successfully.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Room"
+                },
+                "example": {
+                  "room_url": "https://lemonslice.daily.co/abc123",
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                  "image_url": "https://cdn.lemonslice.com/agents/agent_abc123.png"
                 }
               }
             }
           },
-          "403": {
-            "description": "origin denied"
-          },
-          "404": {
-            "description": "agent not found"
-          },
+          "403": { "description": "Origin denied." },
+          "404": { "description": "Agent not found." },
           "500": {
-            "description": "unexpected error",
+            "description": "Unexpected error.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
@@ -70,53 +72,55 @@
   "components": {
     "schemas": {
       "AgentInfo": {
-        "required": [
-          "agent_id"
-        ],
         "type": "object",
+        "required": ["agent_id"],
         "properties": {
           "agent_id": {
-            "description": "The ID of the LemonSlice Agent",
-            "type": "string"
+            "description": "The ID of the LemonSlice Agent.",
+            "type": "string",
+            "examples": ["agent_abc123"]
           }
         }
       },
       "Room": {
-        "required": [
-          "name"
-        ],
         "type": "object",
+        "required": ["room_url", "token", "image_url"],
         "properties": {
           "room_url": {
-            "description": "The Daily room url",
-            "type": "string"
+            "description": "The Daily room URL.",
+            "type": "string",
+            "format": "uri",
+            "examples": ["https://your-subdomain.daily.co/abc123"]
           },
           "token": {
-            "description": "The Daily auth token",
+            "description": "The Daily auth token for this room.",
             "type": "string"
           },
           "image_url": {
-            "description": "The placeholder agent image",
-            "type": "string"
+            "description": "The placeholder agent image.",
+            "type": "string",
+            "format": "uri",
+            "examples": ["https://cdn.lemonslice.com/agents/agent_abc123.png"]
           }
         }
       },
       "Error": {
-        "required": [
-          "message"
-        ],
         "type": "object",
+        "required": ["message"],
         "properties": {
           "message": {
-            "type": "string"
+            "type": "string",
+            "examples": ["Agent not found."]
           }
         }
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Your LemonSlice API token."
       }
     }
   }

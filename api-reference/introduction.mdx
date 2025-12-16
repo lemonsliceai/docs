@@ -1,24 +1,7 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Explore the LemonSlice API reference with endpoint documentation'
 ---
-
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
-
-## Welcome
-
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
 
 ## Authentication
 
@@ -30,4 +13,35 @@ All API endpoints are authenticated using Bearer tokens and picked up from the s
     "bearerAuth": []
   }
 ]
+```
+
+
+## Daily + LemonSlice Events
+
+Hook into the Daily event handler to get LemonSlice specific events
+
+```javscript
+useDailyEvent(
+  "app-message",
+  useCallback((ev: DailyEventObjectAppMessage) => {
+    if (ev?.data?.type === "bot_ready") {
+      console.log("Agent has joined the room")
+    }
+    if (ev?.data?.type === "image_created") {
+      console.log("New base image for Agent created")
+    }
+    if (ev?.data?.type === "image_change_complete") {
+      console.log("Updated agent is ready")
+    }
+    if (ev?.data?.type === "image_change_error") {
+      console.log("Failed to update agent", ev?.data?.err_msg)
+    }
+    if (ev?.data?.type === "daily_error") {
+      console.log("An error occurred. ", ev?.data?.err_msg);
+    }
+    if (ev?.data?.type === "video_generation_error") {
+      console.log("A video generation error occurred.");
+    } 
+  }, [])
+);
 ```
