@@ -22,14 +22,17 @@ Hook into the Daily event handler to get Lemon Slice specific events
 
 ### Event Types
 
-| Event Type                 | Description                                                                                                      |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **bot_ready**              | Fired when the Lemon Slice agent has successfully joined the Daily room and is ready to send/receive audio/video. |
-| **image_created**          | A new agent look has been created for the agent—typically after an `/imagine` request has been made              |
-| **image_change_complete**  | The agent's look has finished updating and the new look is now active.                                           |
-| **image_change_error**     | The agent failed to update its look. Includes an `err_msg` field with further details.                           |
-| **daily_error**            | A Daily-related error occurred. Includes `err_msg`.                                                              |
-| **video_generation_error** | A failure occurred while generating a video segment or rendering agent output.                                   |
+| Event Type                   | Description |
+|-----------------------------|-------------|
+| **`bot_ready`**              | Fired when the Lemon Slice agent has successfully joined the Daily room and is ready to send and receive audio and video. |
+| **`idle_timeout`**           | Emitted when the agent stops due to inactivity. The idle timeout threshold is defined by the agent’s configuration. |
+| **`image_change_requested`** | A new agent look has been requested, typically after an `/imagine` request is made. |
+| **`image_created`**          | A new agent look has been created and is available for use. |
+| **`image_change_complete`**  | The agent’s look has finished updating and the new look is now active. |
+| **`image_change_error`**     | The agent failed to update its look. Includes an `error` field with additional details. |
+| **`daily_error`**            | A Daily-related error occurred. Includes `error` and `fatal` fields. |
+| **`video_generation_error`** | A failure occurred while generating a video segment or rendering agent output. |
+
 
 #### Full event handler
 
@@ -40,6 +43,12 @@ useDailyEvent(
     if (ev?.data?.type === "bot_ready") {
       console.log("Agent has joined the room")
     }
+    if (ev?.data?.type === "idle_timeout") {
+      console.log("Agent has timed out")
+    }
+    if (ev?.data?.type === "image_change_requested") {
+      console.log("Request to edit agent has been recieved")
+    }
     if (ev?.data?.type === "image_created") {
       console.log("New base image for Agent created")
     }
@@ -47,10 +56,10 @@ useDailyEvent(
       console.log("Updated agent is ready")
     }
     if (ev?.data?.type === "image_change_error") {
-      console.log("Failed to update agent", ev?.data?.err_msg)
+      console.log("Failed to update agent", ev?.data?.error)
     }
     if (ev?.data?.type === "daily_error") {
-      console.log("An error occurred. ", ev?.data?.err_msg);
+      console.log("An error occurred. ", ev?.data?.error, ev?.data?.fatal);
     }
     if (ev?.data?.type === "video_generation_error") {
       console.log("A video generation error occurred.");

@@ -55,26 +55,35 @@
               }
             }
           },
-          "403": {
-            "description": "Origin denied.",
+          "400": {
+            "description": "Invalid arguments",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": {}
+                "example": { "error": "Missing required fields" }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication denied",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": { "error": "Invalid API key" }
               }
             }
           },
           "404": {
-            "description": "Agent not found.",
+            "description": "Agent not found",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": {}
+                "example": { "error": "Agent not found" }
               }
             }
           },
           "500": {
-            "description": "Unexpected error.",
+            "description": "Unexpected error",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" }
