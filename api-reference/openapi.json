@@ -73,6 +73,15 @@
               }
             }
           },
+          "402": {
+            "description": "Agent owner has insuffcient funds",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ServerError" },
+                "example": { "detail": "Agent agent_123abc owner has insufficient funds" }
+              }
+            }
+          },
           "404": {
             "description": "Agent not found",
             "content": {
@@ -86,7 +95,7 @@
             "description": "Unexpected error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ServerError" }
+                "schema": { "$ref": "#/components/schemas/ServerError" },
                 "example": { "detail": "Internal server error" }
               }
             }
@@ -138,7 +147,7 @@
             "examples": ["Agent not found"]
           }
         }
-      }
+      },
       "ServerError": {
         "type": "object",
         "properties": {
