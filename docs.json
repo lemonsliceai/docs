@@ -40,12 +40,7 @@
     "dark": "/logo/logo.png"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Get Access",
-        "href": "https://forms.gle/65ApHjSZmQSd4eAz7"
-      }
-    ]
+    "links": []
   },
   "footer": {
     "socials": {
