@@ -2,3 +2,37 @@
 title: "Shopify"
 description: "Learn how to deploy a Lemon Slice agent to your Shopify page."
 ---
+
+Most of the files that Shopify uses to define themes are written in Liquid, Shopify's templating language. To embed a Lemon Slice agent into your Shopify site, you'll need to edit the Liquid file that defines that layout of your page.
+
+### Prerequisites
+
+1. A Lemon Slice Agent created on a paid plan
+1. Some familiarity with Shopify's code editor
+
+### Guide
+
+<Steps>
+  <Step title="Get an embed code">
+    Visit the Lemon Slice [agents platform](https://lemonslice.com/agents) to find your agent's embed widget. It should look something like this:
+
+    ```javascript
+    <lemon-slice-widget agent-id="AGENT_ID_HERE"></lemon-slice-widget>
+    <script type="module" src="https://unpkg.com/@lemonsliceai/lemon-slice-widget"></script>
+    ```
+
+    Copy this embed code.
+  </Step>
+  <Step title="Open your Shopify code editor">
+    ![Shopify admin page](/images/admin.shopify.com_store_gekqgf-xd_themes_187775811953_editor\(2\).png)
+
+    In your Shopify editor, click the three dots (<Icon icon="ellipsis" />) at the upper left corner. Then, click "Edit code" to open your Shopify code editor.
+  </Step>
+  <Step title="Place your embed code in your layout file">
+    1. In the side menu, navigate to the `theme.liquid` file inside your `layout` folder.
+    2. Inside the \<body\> tag, paste your embed code from step 1 before the first` <script>` tag. 
+    3. Then, save your file with <Icon icon="command" /> + S on Mac, or Ctrl + S on Windows. 
+
+    ![Admin Shopify Com Store Gekqgf Xd Themes 187775811953](/images/admin.shopify.com_store_gekqgf-xd_themes_187775811953.png)
+  </Step>
+</Steps>
