@@ -18,6 +18,12 @@
             "pages": [
               "index"
             ]
+          },
+          {
+            "group": "Guide",
+            "pages": [
+              "squarespace"
+            ]
           }
         ]
       },
