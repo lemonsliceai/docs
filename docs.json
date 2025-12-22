@@ -18,6 +18,12 @@
             "pages": [
               "index"
             ]
+          },
+          {
+            "group": "No-code guide",
+            "pages": [
+              "squarespace"
+            ]
           }
         ]
       },
