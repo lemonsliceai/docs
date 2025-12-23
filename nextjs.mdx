@@ -1,0 +1,89 @@
+---
+title: "Next.js"
+description: "Learn how to embed a Lemon Slice agent in a Next.js app using the App Router."
+---
+
+To embed a Lemon Slice agent into a Next.js app, you’ll add the widget to your root layout so it persists across route changes. If you’re using the App Router (`app/` directory), this can be done with just a few lines of code.
+
+### Prerequisites
+
+1. A Lemon Slice Agent created on a paid plan  
+2. A Next.js project using the App Router  
+3. Basic familiarity with TypeScript and React
+
+### Guide
+
+<Steps>
+  <Step title="Get your embed code">
+    Visit the Lemon Slice [agents platform](https://lemonslice.com/agents) and copy your agent’s embed code. It should look something like this:
+
+    ```html
+    <lemon-slice-widget agent-id="AGENT_ID_HERE"></lemon-slice-widget>
+    <script type="module" src="https://unpkg.com/@lemonsliceai/lemon-slice-widget"></script>
+    ```
+  </Step>
+
+  <Step title="Add the widget to your layout.tsx">
+    Open your root layout file at `app/layout.tsx`.
+
+    Place the widget inside the `<body>` so it loads once and persists across pages:
+
+    ```tsx
+    import type { Metadata } from "next";
+
+    export const metadata: Metadata = {
+      title: "My App",
+      description: "A simple Next.js app",
+    };
+
+    export default function RootLayout({
+      children,
+    }: {
+      children: React.ReactNode;
+    }) {
+      return (
+        <html lang="en">
+          <body>
+            {children}
+
+            <lemon-slice-widget agent-id="AGENT_ID_HERE" />
+            <script
+              type="module"
+              src="https://unpkg.com/@lemonsliceai/lemon-slice-widget"
+            />
+          </body>
+        </html>
+      );
+    }
+    ```
+
+    Save the file and restart your dev server if needed.
+  </Step>
+
+  <Step title="Register the widget with TypeScript">
+    Since `lemon-slice-widget` is a custom HTML element, TypeScript needs to be told it’s valid JSX.
+
+    Create a global declaration file (for example, `types/lemon-slice.d.ts`) and add:
+
+    ```ts
+    declare global {
+      namespace JSX {
+        interface IntrinsicElements {
+          "lemon-slice-widget": {
+            "agent-id": string;
+          };
+        }
+      }
+    }
+
+    export {};
+    ```
+
+    This prevents TypeScript errors during development and builds.
+  </Step>
+
+  <Step title="Verify the widget is live">
+    Start your app and navigate to any page.  
+    The Lemon Slice agent should load once and remain available as you navigate between routes.
+  </Step>
+</Steps>
