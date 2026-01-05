@@ -11,6 +11,7 @@ description: "Hook into the Daily event handler to get Lemon Slice specific even
 | :----------------------- | :------------------------------------------------------------------------------------------------------------------------ |
 | `bot_ready`              | Fired when the Lemon Slice agent has successfully joined the Daily room and is ready to send and receive audio and video. |
 | `idle_timeout`           | Emitted when the agent stops due to inactivity. The idle timeout threshold is defined by the agent’s configuration.       |
+| `transcription`           | Emitted when the agent's response has been finalized. Includes the field `transcription` that contains the transcription.      |
 | `image_change_requested` | A new agent look has been requested, typically after an `/imagine` request is made.                                       |
 | `image_created`          | A new agent look has been created and is available for use.                                                               |
 | `image_change_complete`  | The agent’s look has finished updating and the new look is now active.                                                    |
@@ -29,6 +30,9 @@ useDailyEvent(
     }
     if (ev?.data?.type === "idle_timeout") {
       console.log("Agent has timed out")
+    }
+    if (ev?.data?.type === "transcription") {
+      console.log("The latest agent's response transcription: ", ev?.data?.transcription);
     }
     if (ev?.data?.type === "image_change_requested") {
       console.log("Request to edit agent has been recieved")
