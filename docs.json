@@ -27,10 +27,10 @@
           {
             "group": "Deploying agents",
             "pages": [
-              "agent-reference/squarespace",
-              "agent-reference/shopify",
-              "agent-reference/wix",
-              "agent-reference/nextjs"
+              "agent-reference/deploying/squarespace",
+              "agent-reference/deploying/shopify",
+              "agent-reference/deploying/wix",
+              "agent-reference/deploying/nextjs"
             ]
           }
         ]
