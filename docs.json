@@ -12,20 +12,20 @@
     "tabs": [
       {
         "tab": "Overview",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
+        "pages": [
               "index"
             ]
-          },
+      },
+      {
+        "tab": "Agents Platform",
+        "groups": [
           {
-            "group": "Deploying Agents",
+            "group": "Deploying agents",
             "pages": [
-              "squarespace",
-              "shopify",
-              "wix",
-              "nextjs"
+              "agent-reference/deploying/squarespace",
+              "agent-reference/deploying/shopify",
+              "agent-reference/deploying/wix",
+              "agent-reference/deploying/nextjs"
             ]
           }
         ]
@@ -37,6 +37,8 @@
             "group": "API documentation",
             "pages": [
               "api-reference/introduction",
+              "api-reference/authentication",
+              "api-reference/events",
               "api-reference/openapi.json POST /rooms"
             ]
           }

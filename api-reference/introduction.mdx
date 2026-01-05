@@ -3,9 +3,28 @@ title: "Introduction"
 description: "Connect to the Lemon Slice API to connect to your agent via a Daily.co room on any webpage."
 ---
 
-## Authentication
+## Examples
 
-All API endpoints are authenticated using an **API key** sent in the `X-API-Key` header.
+Working examples can be found at the [Lemon Slice Examples Github Repo](https://github.com/lemonsliceai/lemonslice-examples)
+
+## Getting Started
+
+Follow these steps to create your first Lemon Slice agent session and integrate it into your application.
+
+### 1. Get your API key
+
+Retrieve your API Key from the Lemon Slice [dashboard](https://lemonslice.com/agents/api).\
+All API requests must include this header:
+
+```
+X-API-Key: YOUR_API_KEY
+```
+
+### 2. Create a room
+
+Use the `POST /rooms` endpoint to create a Daily room configured with a Lemon Slice agent. The agent will automatically join the room once it's startup is complete.
+
+#### Example request
 
 ```bash
 curl -X POST https://lemonslice.com/api/rooms \
@@ -14,80 +33,48 @@ curl -X POST https://lemonslice.com/api/rooms \
   -d '{ "agent_id": "YOUR_AGENT_ID" }'
 ```
 
----
+### 3. Join the room from your frontend
 
-## Lemon Slice Daily Events
+Use [Daily’s JavaScript SDK](https://docs.daily.co/reference/daily-js) to join the room with the URL and token returned by the API.
 
-Hook into the Daily event handler to get Lemon Slice specific events
+#### Example (JavaScript)
 
-### Event Types
+```javascript
+import DailyIframe from "@daily-co/daily-js";
 
-| Event Type                   | Description |
-|-----------------------------|-------------|
-| **`bot_ready`**              | Fired when the Lemon Slice agent has successfully joined the Daily room and is ready to send and receive audio and video. |
-| **`idle_timeout`**           | Emitted when the agent stops due to inactivity. The idle timeout threshold is defined by the agent’s configuration. |
-| **`image_change_requested`** | A new agent look has been requested, typically after an `/imagine` request is made. |
-| **`image_created`**          | A new agent look has been created and is available for use. |
-| **`image_change_complete`**  | The agent’s look has finished updating and the new look is now active. |
-| **`image_change_error`**     | The agent failed to update its look. Includes an `error` field with additional details. |
-| **`daily_error`**            | A Daily-related error occurred. Includes `error` and `fatal` fields. |
-| **`video_generation_error`** | A failure occurred while generating a video segment or rendering agent output. |
+const callObject = DailyIframe.createCallObject();
 
-
-#### Full event handler
-
-```javscript
-useDailyEvent(
-  "app-message",
-  useCallback((ev: DailyEventObjectAppMessage) => {
-    if (ev?.data?.type === "bot_ready") {
-      console.log("Agent has joined the room")
-    }
-    if (ev?.data?.type === "idle_timeout") {
-      console.log("Agent has timed out")
-    }
-    if (ev?.data?.type === "image_change_requested") {
-      console.log("Request to edit agent has been recieved")
-    }
-    if (ev?.data?.type === "image_created") {
-      console.log("New base image for Agent created")
-    }
-    if (ev?.data?.type === "image_change_complete") {
-      console.log("Updated agent is ready")
-    }
-    if (ev?.data?.type === "image_change_error") {
-      console.log("Failed to update agent", ev?.data?.error)
-    }
-    if (ev?.data?.type === "daily_error") {
-      console.log("An error occurred. ", ev?.data?.error, ev?.data?.fatal);
-    }
-    if (ev?.data?.type === "video_generation_error") {
-      console.log("A video generation error occurred.");
-    } 
-  }, [])
-);
+await callObject.join({
+  url: room_url,
+  token: token
+});
 ```
 
-### Control Events
+Once joined, the Lemon Slice agent will connect and begin responding in the room.
 
-Send events through Daily to control the Lemon Slice agent
-| Control Event                   | Description |
-|-----------------------------|-------------|
-| **`chat-msg`**              | Send a message to the agent for it to respond to. |
-| **`force-end`**              | Immediatly stop the realtime agent. The agent will leave the room and billing will stop. |
+### 4. Listen for Lemon Slice events
 
-```javscript
-sendAppMessage(
-  {
-    event: "chat-msg",
-    message: "Your message here",
-    name: "User",
-  },
-  "*",
-);
+Lemon Slice uses Daily’s `app-message` channel to push events about the agent, image updates, and errors.
 
-sendAppMessage(
-  { event: "force-end" }
-  "*",
-);
+#### Example event handler
+
+```javascript
+useDailyEvent("app-message", (ev) => {
+  if (ev?.data?.type === "bot_ready") {
+    console.log("Agent is ready!");
+  }
+  if (ev?.data?.type === "daily_error") {
+    console.log("An error occurred. ", ev?.data?.err_msg);
+  }
+});
 ```
+
+### You're ready to build
+
+With a room created, the agent connected, and event hooks wired up, you're ready to:
+
+- Build interactive video AI apps
+- Customize agent behavior
+- Trigger image changes and respond to events
+
+Explore the rest of the API docs for more capabilities.

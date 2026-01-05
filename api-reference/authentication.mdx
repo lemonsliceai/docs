@@ -1,0 +1,14 @@
+---
+title: "Authentication"
+---
+
+All API endpoints are authenticated using an **API key** sent in the `X-API-Key` header.
+
+```bash
+curl -X POST https://lemonslice.com/api/rooms \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "agent_id": "YOUR_AGENT_ID" }'
+```
+
+---
