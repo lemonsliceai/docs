@@ -18,6 +18,9 @@
       },
       {
         "tab": "Agents Platform",
+        "pages": [
+              "agent-reference/widget"
+            ],
         "groups": [
           {
             "group": "Deploying agents",
