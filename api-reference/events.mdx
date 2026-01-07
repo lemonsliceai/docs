@@ -11,7 +11,8 @@ description: "Hook into the Daily event handler to get Lemon Slice specific even
 | :----------------------- | :------------------------------------------------------------------------------------------------------------------------ |
 | `bot_ready`              | Fired when the Lemon Slice agent has successfully joined the Daily room and is ready to send and receive audio and video. |
 | `idle_timeout`           | Emitted when the agent stops due to inactivity. The idle timeout threshold is defined by the agent’s configuration.       |
-| `transcription`           | Emitted when the agent's response has been finalized. Includes the field `transcription` that contains the transcription.      |
+| `user_transcription`     | Emitted when the user's speech has been finalized. Includes the field `transcription`. This event also captures messages sent by the user via text. |
+| `agent_transcription`    | Emitted when the agent's response has been finalized. Includes the field `transcription`.                                 |
 | `image_change_requested` | A new agent look has been requested, typically after an `/imagine` request is made.                                       |
 | `image_created`          | A new agent look has been created and is available for use.                                                               |
 | `image_change_complete`  | The agent’s look has finished updating and the new look is now active.                                                    |
@@ -21,7 +22,7 @@ description: "Hook into the Daily event handler to get Lemon Slice specific even
 
 ### Full event handler
 
-```javscript
+```javascript
 useDailyEvent(
   "app-message",
   useCallback((ev: DailyEventObjectAppMessage) => {
@@ -31,11 +32,14 @@ useDailyEvent(
     if (ev?.data?.type === "idle_timeout") {
       console.log("Agent has timed out")
     }
-    if (ev?.data?.type === "transcription") {
-      console.log("The latest agent's response transcription: ", ev?.data?.transcription);
+    if (ev?.data?.type === "user_transcription") {
+      console.log("Latest user transcription: ", ev?.data?.transcription);
+    }
+    if (ev?.data?.type === "agent_transcription") {
+      console.log("Latest agent transcription: ", ev?.data?.transcription);
     }
     if (ev?.data?.type === "image_change_requested") {
-      console.log("Request to edit agent has been recieved")
+      console.log("Request to edit agent has been received")
     }
     if (ev?.data?.type === "image_created") {
       console.log("New base image for Agent created")
@@ -63,9 +67,9 @@ Send events through Daily to control the Lemon Slice agent
 | Control Event | Description                                                                              |
 | :------------ | :--------------------------------------------------------------------------------------- |
 | `chat-msg`    | Send a message to the agent for it to respond to.                                        |
-| `force-end`   | Immediatly stop the realtime agent. The agent will leave the room and billing will stop. |
+| `force-end`   | Immediately stop the realtime agent. The agent will leave the room and billing will stop. |
 
-```javscript
+```javascript
 sendAppMessage(
   {
     event: "chat-msg",
@@ -76,7 +80,7 @@ sendAppMessage(
 );
 
 sendAppMessage(
-  { event: "force-end" }
+  { event: "force-end" },
   "*",
 );
 ```
