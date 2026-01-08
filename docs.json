@@ -22,6 +22,7 @@
           {
             "group": "Widget",
             "pages": [
+              "agent-reference/widget/overview",
               "agent-reference/widget/widget"
             ]
           },
