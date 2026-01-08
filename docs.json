@@ -26,7 +26,7 @@
             ]
           },
           {
-            "group": "Deploying agents",
+            "group": "Installation guides",
             "pages": [
               "agent-reference/deploying/squarespace",
               "agent-reference/deploying/shopify",
