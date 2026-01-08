@@ -66,7 +66,7 @@ Dynamically control minimize button visibility. Options: `"true"` or `"false"`.
 
 #### custom-active-width
 
-Custom width for the active widget state in pixels. Default: `320`.
+Custom width for the active widget state in pixels. 
 
 ```html
 <lemon-slice-widget agent-id="agent_id" custom-active-width="400"></lemon-slice-widget>
@@ -74,7 +74,7 @@ Custom width for the active widget state in pixels. Default: `320`.
 
 #### custom-active-height
 
-Custom height for the active widget state in pixels. Default: `480`.
+Custom height for the active widget state in pixels. 
 
 ```html
 <lemon-slice-widget agent-id="agent_id" custom-active-height="600"></lemon-slice-widget>
@@ -112,15 +112,7 @@ Opacity for the video chat button color in the range `[0, 1]`. Default: `0.3`.
 <lemon-slice-widget agent-id="agent_id" video-button-color-opacity="0.8"></lemon-slice-widget>
 ```
 
-#### hide-powered-by
-
-Hide the "Powered by Lemon Slice" branding. Default: `false`.
-
-```html
-<lemon-slice-widget agent-id="agent_id" hide-powered-by></lemon-slice-widget>
-```
-
-## Dynamic control
+#### Dynamic control
 
 Control the widget dynamically by updating attributes with JavaScript:
 
@@ -159,7 +151,7 @@ widget.setAttribute('controlled-show-minimize-button', 'false');
   agent-id="agent_id"
   custom-active-width="400"
   custom-active-height="600"
-  custom-minimized-width="80"
-  custom-minimized-height="80"
+  custom-minimized-width="120"
+  custom-minimized-height="120"
 ></lemon-slice-widget>
 ```
