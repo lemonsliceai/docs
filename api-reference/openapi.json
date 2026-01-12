@@ -60,7 +60,7 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": { "error": "Missing required fields" }
+                "example": { "detail": "Missing required fields" }
               }
             }
           },
@@ -69,7 +69,7 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": { "error": "Invalid API key" }
+                "example": { "detail": "Invalid API key" }
               }
             }
           },
@@ -78,7 +78,7 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": { "error": "Agent agent_123abc owner has insufficient funds" }
+                "example": { "detail": "Agent agent_123abc owner has insufficient funds" }
               }
             }
           },
@@ -87,7 +87,7 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": { "error": "Agent not found" }
+                "example": { "detail": "Agent not found" }
               }
             }
           },
@@ -146,7 +146,7 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": { "error": "Missing required fields" }
+                "example": { "detail": "Missing required fields" }
               }
             }
           },
@@ -155,7 +155,7 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": { "error": "Invalid API key" }
+                "example": { "detail": "Invalid API key" }
               }
             }
           },
@@ -164,7 +164,7 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": { "error": "Agent agent_123abc owner has insufficient funds" }
+                "example": { "detail": "Agent agent_123abc owner has insufficient funds" }
               }
             }
           },
@@ -173,7 +173,7 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": { "error": "Agent agent_123abc is not owned by the authenticated user" }
+                "example": { "detail": "Agent agent_123abc is not owned by the authenticated user" }
               }
             }
           },
@@ -182,7 +182,7 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Error" },
-                "example": { "error": "Agent not found" }
+                "example": { "detail": "Agent not found" }
               }
             }
           },
@@ -250,7 +250,7 @@
           },
           "properties": {
             "description": "Additional properties need to connect to the transport layer",
-            "type": "string",
+            "type": "object",
             "examples": [{
                 "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
                 "livekit_token": "eyJhbGciOiJIUzI1NiIsIn..."
@@ -272,7 +272,7 @@
       "Error": {
         "type": "object",
         "properties": {
-          "message": {
+          "detail": {
             "type": "string",
             "examples": ["Agent not found"]
           }
