@@ -12,6 +12,8 @@ Your LemonSlice agent ID.
 
 ## States and sizing
 
+Users can switch between the hidden, minimized, and active states. You can set the default state and the sizes for each state for the widget.
+
 ![States](/images/States.png)
 
 #### initial-state
@@ -29,6 +31,7 @@ Dynamically control widget state. Options: `"minimized"`, `"active"`, or `"hidde
 ```html
 <lemon-slice-widget agent-id="agent_id" controlled-widget-state="active"></lemon-slice-widget>
 ```
+
 Control the widget dynamically by updating attributes with JavaScript:
 
 ```javascript
@@ -39,14 +42,6 @@ widget.setAttribute('controlled-widget-state', 'active');
 
 // Toggle minimize button
 widget.setAttribute('controlled-show-minimize-button', 'false');
-```
-
-#### controlled-show-minimize-button
-
-Dynamically control minimize button visibility. Options: `"true"` or `"false"`.
-
-```html
-<lemon-slice-widget agent-id="agent_id" controlled-show-minimize-button="false"></lemon-slice-widget>
 ```
 
 ![State Sizes](/images/StateSizes.png)
@@ -99,7 +94,14 @@ Hides all UI, while keeping sizing logic. Useful for if you want to build your o
 
 ```html
 <lemon-slice-widget agent-id="agent_id" hide-ui></lemon-slice-widget>
+```
 
+#### controlled-show-minimize-button
+
+Dynamically control minimize button visibility. Options: `"true"` or `"false"`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" controlled-show-minimize-button="false"></lemon-slice-widget>
 ```
 
 #### show-minimize-button
