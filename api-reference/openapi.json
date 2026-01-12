@@ -20,7 +20,7 @@
     }
   ],
   "paths": {
-    "/rooms": {
+    "/liveai/rooms": {
       "post": {
         "summary": "Create room",
         "description": "Creates a Daily room configured with the given Lemon Slice agent.",
@@ -77,8 +77,103 @@
             "description": "Agent owner has insuffcient funds",
             "content": {
               "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": { "error": "Agent agent_123abc owner has insufficient funds" }
+              }
+            }
+          },
+          "404": {
+            "description": "Agent not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": { "error": "Agent not found" }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
                 "schema": { "$ref": "#/components/schemas/ServerError" },
-                "example": { "detail": "Agent agent_123abc owner has insufficient funds" }
+                "example": { "detail": "Internal server error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveai/sessions": {
+      "post": {
+        "summary": "Create session",
+        "description": "Creates an agent session that takes in agent audio and returns synced video with the agent audio",
+        "operationId": "createSession",
+        "requestBody": {
+          "description": "The properties used to create an agent session.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionInput"
+              },
+              "example": {
+                "agent_id": "agent_abc123",
+                "transport_type": "livekit",
+                "properties": {
+                  "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
+                  "livekit_token": "livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
+              },
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Session created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                },
+                "example": {
+                  "session_id": "livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid arguments",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": { "error": "Missing required fields" }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication denied",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": { "error": "Invalid API key" }
+              }
+            }
+          },
+          "402": {
+            "description": "Agent owner has insuffcient funds",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": { "error": "Agent agent_123abc owner has insufficient funds" }
+              }
+            }
+          },
+          "403": {
+            "description": "Agent not owned",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" },
+                "example": { "error": "Agent agent_123abc is not owned by the authenticated user" }
               }
             }
           },
@@ -136,6 +231,41 @@
             "type": "string",
             "format": "uri",
             "examples": ["https://cdn.lemonslice.com/agents/agent_abc123.png"]
+          }
+        }
+      },
+      "SessionInput": {
+        "type": "object",
+        "required": ["agent_id", "transport_type"],
+        "properties": {
+          "agent_id": {
+            "description": "The ID of the LemonSlice agent.",
+            "type": "string",
+            "examples": ["agent_abc123"]
+          },
+          "transport_type": {
+            "description": "The interface type for how the audio is sent and how the A/V is returned.",
+            "type": "string",
+            "examples": ["livekit"]
+          },
+          "properties": {
+            "description": "Additional properties need to connect to the transport layer",
+            "type": "string",
+            "examples": [{
+                "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
+                "livekit_token": "eyJhbGciOiJIUzI1NiIsIn..."
+              }]
+          }
+        }
+      },
+      "Session": {
+        "type": "object",
+        "required": ["session_id"],
+        "properties": {
+          "session_id": {
+            "description": "The id of the session",
+            "type": "string",
+            "examples": ["livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"]
           }
         }
       },
