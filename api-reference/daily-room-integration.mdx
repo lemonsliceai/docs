@@ -11,7 +11,7 @@ Working examples can be found at the [Lemon Slice Examples Github Repo](https://
 
 Follow these steps to create your first Lemon Slice agent session and integrate it into your application.
 
-### 1. Get your API key
+#### 1. Get your API key
 
 Retrieve your API Key from the Lemon Slice [dashboard](https://lemonslice.com/agents/api).\
 All API requests must include this header:
@@ -20,11 +20,11 @@ All API requests must include this header:
 X-API-Key: YOUR_API_KEY
 ```
 
-### 2. Create a room
+#### 2. Create a room
 
 Use the `POST /rooms` endpoint to create a Daily room configured with a Lemon Slice agent. The agent will automatically join the room once it's startup is complete.
 
-#### Example request
+##### Example request
 
 ```bash
 curl -X POST https://lemonslice.com/api/rooms \
@@ -33,11 +33,11 @@ curl -X POST https://lemonslice.com/api/rooms \
   -d '{ "agent_id": "YOUR_AGENT_ID" }'
 ```
 
-### 3. Join the room from your frontend
+#### 3. Join the room from your frontend
 
 Use [Daily’s JavaScript SDK](https://docs.daily.co/reference/daily-js) to join the room with the URL and token returned by the API.
 
-#### Example (JavaScript)
+##### Example (JavaScript)
 
 ```javascript
 import DailyIframe from "@daily-co/daily-js";
@@ -52,11 +52,11 @@ await callObject.join({
 
 Once joined, the Lemon Slice agent will connect and begin responding in the room.
 
-### 4. Listen for Lemon Slice events
+#### 4. Listen for Lemon Slice events
 
 Lemon Slice uses Daily’s `app-message` channel to push events about the agent, image updates, and errors.
 
-#### Example event handler
+##### Example event handler
 
 ```javascript
 useDailyEvent("app-message", (ev) => {
@@ -69,7 +69,7 @@ useDailyEvent("app-message", (ev) => {
 });
 ```
 
-### You're ready to build
+#### You're ready to build
 
 With a room created, the agent connected, and event hooks wired up, you're ready to:
 
@@ -96,7 +96,7 @@ Hook into the Daily event handler to get Lemon Slice specific events
 | `daily_error`            | A Daily-related error occurred. Includes `error` and `fatal` fields.                                                      |
 | `video_generation_error` | A failure occurred while generating a video segment or rendering agent output.                                            |
 
-### Full event handler
+#### Full event handler
 
 ```javascript
 useDailyEvent(
@@ -145,7 +145,7 @@ Send events through Daily to control the Lemon Slice agent
 | `chat-msg`    | Send a message to the agent for it to respond to.                                        |
 | `force-end`   | Immediately stop the realtime agent. The agent will leave the room and billing will stop. |
 
-### Sending Events
+#### Sending Events
 
 ```javascript
 sendAppMessage(
