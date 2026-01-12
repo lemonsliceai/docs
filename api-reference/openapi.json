@@ -121,7 +121,7 @@
                 "properties": {
                   "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
                   "livekit_token": "livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
-              },
+                }
               }
             }
           },
