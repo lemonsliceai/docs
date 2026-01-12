@@ -49,6 +49,7 @@ Dynamically control minimize button visibility. Options: `"true"` or `"false"`.
 
 ![State Sizes](/images/StateSizes.png)
 
+
 #### custom-active-width
 
 Custom width for the active widget state in pixels.
@@ -84,6 +85,15 @@ Custom height for the minimized widget state in pixels.
 ## Styling
 
 
+#### hide-ui
+
+Hides all UI, while keeping sizing logic. Useful for if you want to build your own message UI.
+
+```html
+<lemon-slice-widget agent-id="agent_id" hide-ui></lemon-slice-widget>
+
+```
+
 #### show-minimize-button
 
 Show or hide the minimize button on hover. Default: `true`.
@@ -108,7 +118,8 @@ Opacity for the video chat button color in the range `[0, 1]`. Default: `0.3`.
 <lemon-slice-widget agent-id="agent_id" video-button-color-opacity="0.8"></lemon-slice-widget>
 ```
 
-#### Dynamic control
+## Control
+
 
 Control the widget dynamically by updating attributes with JavaScript:
 
