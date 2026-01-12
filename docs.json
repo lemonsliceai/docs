@@ -42,11 +42,22 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Overview",
+            "pages": [
+              "api-reference/authentication"
+            ]
+          },
+          {
+            "group": "LiveAI Endpoints",
             "pages": [
               "api-reference/openapi.json POST /liveai/rooms",
-              "api-reference/openapi.json POST /liveai/sessions",
-              "api-reference/authentication",
+              "api-reference/openapi.json POST /liveai/sessions"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "api-reference/livekit-agent-integration",
               "api-reference/daily-room-integration"
             ]
           }
