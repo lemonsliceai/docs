@@ -1,8 +1,6 @@
 ---
-title: "Customization"
+title: "Customizing the widget"
 ---
-
-### Attributes
 
 #### agent-id (required)
 
@@ -12,21 +10,11 @@ Your LemonSlice agent ID.
 <lemon-slice-widget agent-id="agent_id"></lemon-slice-widget>
 ```
 
-#### inline
+## States and sizing
 
-Display widget inline instead of floating. Default: `false`.
+Users can switch between the hidden, minimized, and active states. You can set the default state and the sizes for each state for the widget.
 
-```html
-<lemon-slice-widget agent-id="agent_id" inline></lemon-slice-widget>
-```
-
-#### show-minimize-button
-
-Show or hide the minimize button. Default: `true`.
-
-```html
-<lemon-slice-widget agent-id="agent_id" show-minimize-button="false"></lemon-slice-widget>
-```
+![States](/images/States.png)
 
 #### initial-state
 
@@ -44,13 +32,19 @@ Dynamically control widget state. Options: `"minimized"`, `"active"`, or `"hidde
 <lemon-slice-widget agent-id="agent_id" controlled-widget-state="active"></lemon-slice-widget>
 ```
 
-#### controlled-show-minimize-button
+Control the widget dynamically by updating attributes with JavaScript:
 
-Dynamically control minimize button visibility. Options: `"true"` or `"false"`.
+```javascript
+const widget = document.querySelector('lemon-slice-widget');
 
-```html
-<lemon-slice-widget agent-id="agent_id" controlled-show-minimize-button="false"></lemon-slice-widget>
+// Change widget state
+widget.setAttribute('controlled-widget-state', 'active');
+
+// Toggle minimize button
+widget.setAttribute('controlled-show-minimize-button', 'false');
 ```
+
+![State Sizes](/images/StateSizes.png)
 
 #### custom-active-width
 
@@ -84,6 +78,40 @@ Custom height for the minimized widget state in pixels.
 <lemon-slice-widget agent-id="agent_id" custom-minimized-height="80"></lemon-slice-widget>
 ```
 
+## Styling
+
+#### inline
+
+Display widget inline instead of floating. Default: `false`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" inline></lemon-slice-widget>
+```
+
+#### hide-ui
+
+Hides all UI, while keeping sizing logic. Useful for if you want to build your own message UI.
+
+```html
+<lemon-slice-widget agent-id="agent_id" hide-ui></lemon-slice-widget>
+```
+
+#### controlled-show-minimize-button
+
+Dynamically control minimize button visibility. Options: `"true"` or `"false"`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" controlled-show-minimize-button="false"></lemon-slice-widget>
+```
+
+#### show-minimize-button
+
+Show or hide the minimize button on hover. Default: `true`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" show-minimize-button="false"></lemon-slice-widget>
+```
+
 #### video-button-color-hex
 
 Hex color (with or without `#`) used for the minimized video chat button. Default: `#919191`.
@@ -98,20 +126,6 @@ Opacity for the video chat button color in the range `[0, 1]`. Default: `0.3`.
 
 ```html
 <lemon-slice-widget agent-id="agent_id" video-button-color-opacity="0.8"></lemon-slice-widget>
-```
-
-#### Dynamic control
-
-Control the widget dynamically by updating attributes with JavaScript:
-
-```javascript
-const widget = document.querySelector('lemon-slice-widget');
-
-// Change widget state
-widget.setAttribute('controlled-widget-state', 'active');
-
-// Toggle minimize button
-widget.setAttribute('controlled-show-minimize-button', 'false');
 ```
 
 ## Examples
