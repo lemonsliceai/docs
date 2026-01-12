@@ -1,3 +1,56 @@
 ---
 title: "Controlling your widget"
 ---
+
+You can control the widget programmatically without user feedback. This is especially useful if you want to use `hide-ui` to build your own messaging UI. The widget exposes the following methods on the custom element:
+
+### Audio Control (Speaker)
+
+- **`mute()`**: Mute the speaker/audio output (returns `Promise<void>`)
+- **`unmute()`**: Unmute the speaker/audio output (returns `Promise<void>`)
+- **`isMuted()`**: Check if audio is currently muted (returns `boolean`)
+- **`canUnmute()`**: Check if audio can be unmuted (returns `boolean`)
+
+### Microphone Control
+
+- **`micOn()`**: Turn on the microphone. This will automatically start the room if not already started (returns `Promise<void>`)
+- **`micOff()`**: Turn off the microphone (returns `Promise<void>`)
+- **`isMicOn()`**: Check if microphone is currently on (returns `boolean`). Currently always returns true.
+- **`canTurnOnMic()`**: Check if microphone can be turned on (returns `boolean`) Currently always returns true.
+
+### Message Sending
+
+- **`sendMessage(message: string)`**: Send a message to the agent. This will automatically start the room if not already started (returns `Promise<void>`)
+
+### Notes
+
+- `micOn()` and `sendMessage()` will automatically:
+  - Set user interaction flag
+  - Ensure widget is in active state
+  - Create a room if one doesn't exist
+  - Join the room if not already joined
+
+### Example Usage
+
+```javascript
+const widget = document.querySelector('lemon-slice-widget');
+
+// Turn on microphone (will start room automatically)
+await widget.micOn();
+
+// Send a message (will start room automatically if needed)
+await widget.sendMessage('Hello, agent!');
+
+// Check microphone status
+if (widget.isMicOn()) {
+  console.log('Microphone is on');
+}
+
+// Mute audio
+await widget.mute();
+
+// Check if muted
+if (widget.isMuted()) {
+  console.log('Audio is muted');
+}
+```
