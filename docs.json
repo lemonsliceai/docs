@@ -47,7 +47,8 @@
               "api-reference/introduction",
               "api-reference/authentication",
               "api-reference/events",
-              "api-reference/openapi.json POST /rooms"
+              "api-reference/openapi.json POST /liveai/rooms",
+              "api-reference/openapi.json POST /liveai/session"
             ]
           }
         ]
