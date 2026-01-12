@@ -1,8 +1,6 @@
 ---
-title: "Customization"
+title: "Customizing your widget"
 ---
-
-### Attributes
 
 #### agent-id (required)
 
@@ -20,13 +18,10 @@ Display widget inline instead of floating. Default: `false`.
 <lemon-slice-widget agent-id="agent_id" inline></lemon-slice-widget>
 ```
 
-#### show-minimize-button
 
-Show or hide the minimize button. Default: `true`.
+## States and sizing
 
-```html
-<lemon-slice-widget agent-id="agent_id" show-minimize-button="false"></lemon-slice-widget>
-```
+![States](/images/States.png)
 
 #### initial-state
 
@@ -51,6 +46,8 @@ Dynamically control minimize button visibility. Options: `"true"` or `"false"`.
 ```html
 <lemon-slice-widget agent-id="agent_id" controlled-show-minimize-button="false"></lemon-slice-widget>
 ```
+
+![State Sizes](/images/StateSizes.png)
 
 #### custom-active-width
 
@@ -82,6 +79,17 @@ Custom height for the minimized widget state in pixels.
 
 ```html
 <lemon-slice-widget agent-id="agent_id" custom-minimized-height="80"></lemon-slice-widget>
+```
+
+## Styling
+
+
+#### show-minimize-button
+
+Show or hide the minimize button on hover. Default: `true`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" show-minimize-button="false"></lemon-slice-widget>
 ```
 
 #### video-button-color-hex
