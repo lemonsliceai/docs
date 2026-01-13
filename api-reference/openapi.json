@@ -135,12 +135,32 @@
               "schema": {
                 "$ref": "#/components/schemas/SessionInput"
               },
-              "example": {
-                "agent_id": "agent_abc123",
-                "transport_type": "livekit",
-                "properties": {
-                  "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
-                  "livekit_token": "livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
+              "examples": {
+                "by_agent_id": {
+                  "summary": "Create a session using an agent_id",
+                  "value": {
+                    "agent_id": "agent_abc123",
+                    "transport_type": "livekit",
+                    "properties": {
+                      "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
+                      "livekit_token": "livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
+                    },
+                    "agent_prompt": "Be upbeat and concise.",
+                    "idle_timeout": 60
+                  }
+                },
+                "by_agent_image_url": {
+                  "summary": "Create a session using an agent_image_url",
+                  "value": {
+                    "agent_image_url": "https://cdn.lemonslice.com/agents/custom_agent.png",
+                    "transport_type": "livekit",
+                    "properties": {
+                      "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
+                      "livekit_token": "livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
+                    },
+                    "agent_prompt": "Speak like a friendly ski instructor.",
+                    "idle_timeout": -1
+                  }
                 }
               }
             }
@@ -280,23 +300,20 @@
       },
 
       "SessionInput": {
-        "oneOf": [{ "$ref": "#/components/schemas/SessionInputLiveKit" }],
-        "discriminator": {
-          "propertyName": "transport_type",
-          "mapping": {
-            "livekit": "#/components/schemas/SessionInputLiveKit"
-          }
-        }
-      },
-
-      "SessionInputLiveKit": {
+        "description": "Input to create an agent session. Exactly one of agent_id or agent_image_url must be provided.",
         "type": "object",
-        "required": ["agent_id", "transport_type", "properties"],
+        "required": ["transport_type", "properties"],
         "properties": {
           "agent_id": {
-            "description": "The ID of the LemonSlice agent.",
+            "description": "The ID of the LemonSlice agent. Provide either agent_id or agent_image_url, but not both.",
             "type": "string",
             "example": "agent_abc123"
+          },
+          "agent_image_url": {
+            "description": "A URL to an agent image to use. Provide either agent_image_url or agent_id, but not both.",
+            "type": "string",
+            "format": "uri",
+            "example": "https://cdn.lemonslice.com/agents/custom_agent.png"
           },
           "transport_type": {
             "description": "The interface type for how the audio is sent and how the A/V is returned.",
@@ -305,10 +322,33 @@
             "example": "livekit"
           },
           "properties": {
-            "description": "Additional properties needed to connect to the transport layer",
+            "description": "Additional properties needed to connect to the transport layer.",
             "$ref": "#/components/schemas/LiveKitTransportProperties"
+          },
+          "agent_prompt": {
+            "description": "Optional system prompt to guide the agent's behavior for this session.",
+            "type": "string",
+            "example": "Be upbeat and concise."
+          },
+          "idle_timeout": {
+            "description": "Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout.",
+            "type": "integer",
+            "default": 60,
+            "example": 60
           }
         },
+        "oneOf": [
+          {
+            "title": "ByAgentId",
+            "required": ["agent_id"],
+            "not": { "required": ["agent_image_url"] }
+          },
+          {
+            "title": "ByAgentImageUrl",
+            "required": ["agent_image_url"],
+            "not": { "required": ["agent_id"] }
+          }
+        ],
         "additionalProperties": false
       },
 
