@@ -14,7 +14,7 @@ This section includes a basic usage example and some reference material. For lin
 ### Prerequisites
 
 1. [LemonSlice Agent ID](https://lemonslice.com/agents)
-2. LiveKit Agent Python App
+2. LiveKit Agents Python App
    * Your own existing application.
    * Or follow [LiveKit VoiceAI quickstart](https://docs.livekit.io/agents/start/voice-ai-quickstart/) to create one.
 
@@ -22,17 +22,17 @@ This section includes a basic usage example and some reference material. For lin
 
 <Steps>
   <Step title="Install the plugin">
-    1. Within your LiveKit Agent app, install the plugin from PyPi:
+    1. Within your LiveKit Agents app, install the plugin from PyPi:
     ```shell
     pip install "livekit-agents[lemonslice]~=1.3"
     ```
   </Step>
   <Step title="Authenticate">
     1. Create a [LemonSlice API key](https://lemonslice.com/agents/api)
-    2. In your LiveKit Agent app, set LEMONSLICE_API_KEY in your .env file
+    2. In your LiveKit Agents app, set `LEMONSLICE_API_KEY` in your .env file
   </Step>
   <Step title="Add AvatarSession to AgentSession">
-    In your LiveKit Agent app, create a lemonslice.AvatarSession alongside your AgentSession:
+    In your LiveKit Agents app, create a `lemonslice.AvatarSession` alongside your `AgentSession`:
     ```python {3,12-17}
 from livekit import agents
 from livekit.agents import AgentSession, RoomOutputOptions
