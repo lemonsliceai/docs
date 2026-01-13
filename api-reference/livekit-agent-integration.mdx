@@ -3,10 +3,6 @@ title: "LiveKit Agent Integration"
 description: "Connect to a LemonSlice Agent via Livekit's Agent realtime pipeline"
 ---
 
-# LiveKit Agent Integration Guide (Coming Soon!)
-
-> How to use the LemonSlice virtual avatar plugin for LiveKit Agents.
-
 ## Overview
 
 [LiveKit Agents](https://docs.livekit.io/agents/) provides a realtime framework for voice, video, and physical AI agents. Through our open source integration you can seamlessly add a LemonSlice avatar to real-time voice AI systems.
@@ -71,10 +67,9 @@ async def entrypoint(ctx: agents.JobContext):
 
 The following resources provide more information about using LemonSlice with LiveKit Agents.
 
-- **[LemonSlice Session API Documentation](https://lemonslice.com/docs/api-reference/create-session)**: Reference for LemonSlice Session API.
-
-- **[LiveKit Documentation](https://docs.livekit.io/intro/overview/)**: Reference for the LiveKit platform.
-
-- **[Agents Playground](https://docs.livekit.io/agents/start/playground.md)**: A virtual workbench to test your avatar agent using LiveKit.
-
-- **[LiveKit Frontend Starter Apps](https://docs.livekit.io/agents/start/frontend.md#starter-apps)**: Ready-to-use frontend apps with avatar support using LiveKit.
+<Columns cols={2}>
+  <Card title="LemonSlice Session API Documentation" icon="bot" href="https://lemonslice.com/docs/api-reference/create-session" cta="Reference for LemonSlice Session API."></Card>
+  <Card title="LiveKit Documentation" icon="code" href="https://docs.livekit.io/intro/overview/" cta="Reference for the LiveKit platform."></Card>
+  <Card title="LiveKit Agents Playground" icon="cpu" href="https://docs.livekit.io/agents/start/playground.md" cta="A virtual workbench to test your avatar agent using LiveKit."></Card>
+  <Card title="LiveKit Frontend Starter Apps" icon="hammer" href="https://docs.livekit.io/agents/start/playground.md" cta="Ready-to-use frontend apps with avatar support using LiveKit."></Card>
+</Columns>
