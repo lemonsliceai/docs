@@ -2,3 +2,79 @@
 title: "LiveKit Agent Integration"
 description: "Connect to a LemonSlice Agent via Livekit's Agent realtime pipeline"
 ---
+
+# LiveKit Agent Integration Guide (Coming Soon!)
+
+> How to use the LemonSlice virtual avatar plugin for LiveKit Agents.
+
+## Overview
+
+[LiveKit Agents](https://docs.livekit.io/agents/) provides a realtime framework for voice, video, and physical AI agents. Through our open source integration you can seamlessly add a LemonSlice avatar to real-time voice AI systems.
+
+## Quick Start
+
+This section includes a basic usage example and some reference material. For links to more detailed documentation, see [Additional resources](#additional-resources).
+
+### Prerequisites
+
+1. [LemonSlice Agent ID](https://lemonslice.com/agents)
+2. LiveKit Agent Python App
+   * Your own existing application.
+   * Or follow [LiveKit VoiceAI quickstart](https://docs.livekit.io/agents/start/voice-ai-quickstart/) to create one.
+
+### Integration Guide
+
+<Steps>
+  <Step title="Install the plugin">
+    1. Within your LiveKit Agent app, install the plugin from PyPi:
+    ```shell
+    pip install "livekit-agents[lemonslice]~=1.3"
+    ```
+  </Step>
+  <Step title="Authenticate">
+    1. Create a [LemonSlice API key](https://lemonslice.com/agents/api)
+    2. In your LiveKit Agent app, set LEMONSLICE_API_KEY in your .env file
+  </Step>
+  <Step title="Add AvatarSession to AgentSession">
+    In your LiveKit Agent app, create a lemonslice.AvatarSession alongside your AgentSession:
+    ```python
+from livekit import agents
+from livekit.agents import AgentSession, RoomOutputOptions
+from livekit.plugins import lemonslice
+
+async def entrypoint(ctx: agents.JobContext):
+    await ctx.connect()
+
+    session = AgentSession(
+        # Add STT, LLM, TTS, and other components here
+    )
+
+    avatar = lemonslice.AvatarSession(
+        agent_id="your-agent-id"
+    )
+
+   # Start the avatar and wait for it to join
+   await avatar.start(session, room=ctx.room)
+
+   # Start your agent session with the user
+   await session.start(
+      # ... room, agent, room_options, etc....
+   )
+```
+  </Step>
+  <Step title="Preview">
+    Preview the avatar in the [Agents Playground](https://docs.livekit.io/agents/start/playground.md) or a frontend [starter app](https://docs.livekit.io/agents/start/frontend.md#starter-apps) that you build.
+  </Step>
+</Steps>
+
+## Additional resources
+
+The following resources provide more information about using LemonSlice with LiveKit Agents.
+
+- **[LemonSlice Session API Documentation](https://lemonslice.com/docs/api-reference/create-session)**: Reference for LemonSlice Session API.
+
+- **[LiveKit Documentation](https://docs.livekit.io/intro/overview/)**: Reference for the LiveKit platform.
+
+- **[Agents Playground](https://docs.livekit.io/agents/start/playground.md)**: A virtual workbench to test your avatar agent using LiveKit.
+
+- **[LiveKit Frontend Starter Apps](https://docs.livekit.io/agents/start/frontend.md#starter-apps)**: Ready-to-use frontend apps with avatar support using LiveKit.
