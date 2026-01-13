@@ -136,6 +136,19 @@
                 "$ref": "#/components/schemas/SessionInput"
               },
               "examples": {
+                "by_agent_image_url": {
+                  "summary": "Create a session using an agent_image_url",
+                  "value": {
+                    "agent_image_url": "https://cdn.lemonslice.com/agents/custom_agent.png",
+                    "agent_prompt": "A friendly and smiling person.",
+                    "idle_timeout": -1,
+                    "transport_type": "livekit",
+                    "properties": {
+                      "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
+                      "livekit_token": "eyJhbGciOiJIUzI1NiIsInR5..."
+                    }
+                  }
+                },
                 "by_agent_id": {
                   "summary": "Create a session using an agent_id",
                   "value": {
@@ -144,22 +157,7 @@
                     "properties": {
                       "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
                       "livekit_token": "eyJhbGciOiJIUzI1NiIsInR5..."
-                    },
-                    "agent_prompt": "A friendly and smiling person.",
-                    "idle_timeout": 60
-                  }
-                },
-                "by_agent_image_url": {
-                  "summary": "Create a session using an agent_image_url",
-                  "value": {
-                    "agent_image_url": "https://cdn.lemonslice.com/agents/custom_agent.png",
-                    "transport_type": "livekit",
-                    "properties": {
-                      "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
-                      "livekit_token": "eyJhbGciOiJIUzI1NiIsInR5..."
-                    },
-                    "agent_prompt": "A friendly and smiling person.",
-                    "idle_timeout": -1
+                    }
                   }
                 }
               }
@@ -301,7 +299,7 @@
       "SessionInput": {
         "description": "Input to create an agent session. Exactly one of agent_id or agent_image_url must be provided.",
         "type": "object",
-        "required": ["transport_type", "properties"],
+        "required": ["transport_type"],
         "properties": {
           "agent_id": {
             "description": "The ID of the LemonSlice agent. Provide either agent_id or agent_image_url, but not both.",
@@ -309,7 +307,7 @@
             "example": "agent_abc123"
           },
           "agent_image_url": {
-            "description": "A URL to an agent image to use. Provide either agent_image_url or agent_id, but not both.",
+            "description": "A URL to an agent image to use. The image should be 368x560 pixels or it will be resized. Provide either agent_image_url or agent_id, but not both.",
             "type": "string",
             "format": "uri",
             "example": "https://example.com/custom_agent.png"
@@ -338,14 +336,14 @@
         },
         "oneOf": [
           {
-            "title": "By agent_id",
-            "required": ["agent_id"],
-            "not": { "required": ["agent_image_url"] }
-          },
-          {
             "title": "By agent_image_url",
             "required": ["agent_image_url"],
             "not": { "required": ["agent_id"] }
+          },
+          {
+            "title": "By agent_id",
+            "required": ["agent_id"],
+            "not": { "required": ["agent_image_url"] }
           }
         ],
         "additionalProperties": false
