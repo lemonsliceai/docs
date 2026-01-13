@@ -14,6 +14,7 @@ This section includes a basic usage example and some reference material. For lin
 ### Prerequisites
 
 1. LemonSlice agent information
+
 Either a base image URL or a LemonSlice Agent ID.
    * Agent base image — a publicly accessible image URL of your avatar, focused on the face. The image should be 368 × 560 pixels, but it will be automatically resized if the dimensions do not match.
    * [LemonSlice Agent ID](https://lemonslice.com/agents)
@@ -50,8 +51,6 @@ async def entrypoint(ctx: agents.JobContext):
 
     avatar = lemonslice.AvatarSession(
         agent_image_url="https://6ammc3n5zzf5ljnz.public.blob.vercel-storage.com/inf2-image-uploads/image_9d0f6-WhaKqLKTzfVHlfe5jXzHE8Rpi9peF4.jpg",
-        agent_prompt="A happy smiling woman talking",
-        idle_timeout=60,
     )
 
    # Start the avatar and wait for it to join
