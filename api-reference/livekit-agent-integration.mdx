@@ -13,10 +13,13 @@ This section includes a basic usage example and some reference material. For lin
 
 ### Prerequisites
 
-1. [LemonSlice Agent ID](https://lemonslice.com/agents)
-2. LiveKit Agents Python App
-   * Your own existing application.
-   * Or follow [LiveKit VoiceAI quickstart](https://docs.livekit.io/agents/start/voice-ai-quickstart/) to create one.
+1. LemonSlice agent information
+Either a base image URL or a LemonSlice Agent ID.
+   * Agent base image — a publicly accessible image URL of your avatar, focused on the face. The image should be 368 × 560 pixels, but it will be automatically resized if the dimensions do not match.
+   * [LemonSlice Agent ID](https://lemonslice.com/agents)
+3. LiveKit Agents Python App
+   * Your own existing application, or
+   * Follow the [LiveKit VoiceAI quickstart](https://docs.livekit.io/agents/start/voice-ai-quickstart/) to create one.
 
 ### Integration Guide
 
@@ -46,7 +49,9 @@ async def entrypoint(ctx: agents.JobContext):
     )
 
     avatar = lemonslice.AvatarSession(
-        agent_id="your-agent-id"
+        agent_image_url="https://6ammc3n5zzf5ljnz.public.blob.vercel-storage.com/inf2-image-uploads/image_9d0f6-WhaKqLKTzfVHlfe5jXzHE8Rpi9peF4.jpg",
+        agent_prompt="A happy smiling woman talking",
+        idle_timeout=60,
     )
 
    # Start the avatar and wait for it to join
@@ -57,6 +62,13 @@ async def entrypoint(ctx: agents.JobContext):
       # ... room, agent, room_options, etc....
    )
 ```
+Parameters for `lemonslice.AvatarSession`. Either `agent_image_url` or `agent_id` is required.
+| Parameter         | Description                                                                                                                    |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `agent_image_url` | A URL to an agent image to use.                                                                                                |
+| `agent_id`        | The ID of the LemonSlice agent.                                                                                                |
+| `agent_prompt`    | *(Optional)* A system prompt to guide the agent’s movements and expressions.                                                   |
+| `idle_timeout`    | *(Optional)* Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout. |
   </Step>
   <Step title="Preview">
     Preview the avatar in the [Agents Playground](https://docs.livekit.io/agents/start/playground.md) or a frontend [starter app](https://docs.livekit.io/agents/start/frontend.md#starter-apps) that you build.
