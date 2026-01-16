@@ -307,7 +307,7 @@
             "example": "agent_abc123"
           },
           "agent_image_url": {
-            "description": "A URL to an agent image to use. The image should be 368x560 pixels or it will be resized. Provide either agent_image_url or agent_id, but not both.",
+            "description": "A URL to an agent image to use. The image should be 368x560 pixels. LemonSlice will automatically center-crop your image to the target aspect ratio if the dimensions do not match the expected values. Provide either agent_image_url or agent_id, but not both.",
             "type": "string",
             "format": "uri",
             "example": "https://example.com/custom_agent.png"
