@@ -52,7 +52,12 @@ async def entrypoint(ctx: agents.JobContext):
     )
 
     avatar = lemonslice.AvatarSession(
-        agent_image_url="https://6ammc3n5zzf5ljnz.public.blob.vercel-storage.com/inf2-image-uploads/image_9d0f6-WhaKqLKTzfVHlfe5jXzHE8Rpi9peF4.jpg",
+        # Publicly accessible image URL for the avatar
+        agent_image_url="...",
+        # Prompt to guide the avatar's demeanor
+        agent_prompt="Be excited and happy. Use your hands while talking."
+    )
+        
     )
 
    # Start the avatar and wait for it to join
@@ -68,7 +73,7 @@ Parameters for `lemonslice.AvatarSession`. Either `agent_image_url` or `agent_id
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `agent_image_url` | A URL to an agent image to use.                                                                                                |
 | `agent_id`        | The ID of the LemonSlice agent.                                                                                                |
-| `agent_prompt`    | *(Optional)* A system prompt to guide the agent’s movements and expressions.                                                   |
+| `agent_prompt`    | *(Optional)* A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, "feel excited" or "look sad") rather than precise or deterministic actions.                                                   |
 | `idle_timeout`    | *(Optional)* Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout. |
   </Step>
   <Step title="Preview">

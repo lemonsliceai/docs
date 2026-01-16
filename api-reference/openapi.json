@@ -313,7 +313,7 @@
             "example": "https://example.com/custom_agent.png"
           },
           "agent_prompt": {
-            "description": "Optional system prompt to guide the agent's behavior for this session.",
+            "description": "A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, 'feel excited' or 'look sad') rather than precise or deterministic actions.",
             "type": "string",
             "example": "Be upbeat and concise."
           },
