@@ -51,7 +51,8 @@
           {
             "group": "LiveAI Endpoints",
             "pages": [
-              "api-reference/openapi.json POST /liveai/rooms"
+              "api-reference/openapi.json POST /liveai/rooms",
+              "api-reference/openapi.json POST /liveai/sessions"
             ]
           },
           {
