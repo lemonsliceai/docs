@@ -49,7 +49,7 @@
                 },
                 "example": {
                   "room_url": "https://lemonslice.daily.co/abc123",
-                  "token": "eyJhbGciOiJIUzI1NiIsInR5...",
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5a...",
                   "image_url": "https://cdn.lemonslice.com/agents/agent_abc123.png"
                 }
               }
@@ -141,11 +141,10 @@
                   "value": {
                     "agent_image_url": "https://cdn.lemonslice.com/agents/custom_agent.png",
                     "agent_prompt": "A friendly and smiling person.",
-                    "idle_timeout": 30,
                     "transport_type": "livekit",
                     "properties": {
                       "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
-                      "livekit_token": "eyJhbGciOiJIUzI1NiIsInR5..."
+                      "livekit_token": "eyJhbGciOiJIUzI1NiIsInR5a..."
                     }
                   }
                 },
@@ -156,7 +155,7 @@
                     "transport_type": "livekit",
                     "properties": {
                       "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
-                      "livekit_token": "eyJhbGciOiJIUzI1NiIsInR5..."
+                      "livekit_token": "eyJhbGciOiJIUzI1NiIsInR5a..."
                     }
                   }
                 }
@@ -359,13 +358,13 @@
           },
           "livekit_token": {
             "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5..."
+            "example": "eyJhbGciOiJIUzI1NiIsInR5a..."
           }
         },
         "additionalProperties": true,
         "example": {
           "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
-          "livekit_token": "eyJhbGciOiJIUzI1NiIsInR5..."
+          "livekit_token": "eyJhbGciOiJIUzI1NiIsInR5a..."
         }
       },
       "Session": {
