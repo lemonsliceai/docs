@@ -141,7 +141,7 @@
                   "value": {
                     "agent_image_url": "https://cdn.lemonslice.com/agents/custom_agent.png",
                     "agent_prompt": "A friendly and smiling person.",
-                    "idle_timeout": -1,
+                    "idle_timeout": 30,
                     "transport_type": "livekit",
                     "properties": {
                       "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
