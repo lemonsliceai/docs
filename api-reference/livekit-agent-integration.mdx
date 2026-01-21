@@ -19,7 +19,7 @@ This section includes a basic usage example and some reference material. For lin
    * Agent base image — a publicly accessible image URL of your avatar, focused on the face. The image should be 368 × 560 pixels. LemonSlice will automatically center-crop your image to the target aspect ratio if the dimensions do not match the expected values. Best results are achieved with anthropomorphic images where the face and mouth are clearly identifiable.
    * [LemonSlice Agent ID](https://lemonslice.com/agents)
 
-     **Note:** LiveKit LLM/TTS settings will supersede selected voices and personalities configured for the LemonSlice agent. 
+     <Note>Selected voices and personalities for a LemonSlice agent will be ignored when using the LiveKit plugin.</Note> 
 3. LiveKit Agents Python App
    * Your own existing application, or
    * Follow the [LiveKit VoiceAI quickstart](https://docs.livekit.io/agents/start/voice-ai-quickstart/) to create one.
@@ -88,6 +88,6 @@ The following resources provide more information about using LemonSlice with Liv
 <Columns cols={2}>
   <Card title="LemonSlice Session API Documentation" icon="book-open" href="https://lemonslice.com/docs/api-reference/create-session" cta="Reference for LemonSlice Session API."></Card>
   <Card title="LiveKit Documentation" icon="book-open" href="https://docs.livekit.io/intro/overview/" cta="Reference for the LiveKit platform."></Card>
+  <Card title="LemonSlice Livekit Example Agent" icon="hammer" href="https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent" cta="Ready-to-use LiveKit agent with avatar support using LemonSlice."></Card>
   <Card title="LiveKit Agents Playground" icon="shield-check" href="https://docs.livekit.io/agents/start/playground.md" cta="A virtual workbench to test your avatar agent using LiveKit."></Card>
-  <Card title="LiveKit Frontend Starter Apps" icon="hammer" href="https://docs.livekit.io/agents/start/playground.md" cta="Ready-to-use frontend apps with avatar support using LiveKit."></Card>
 </Columns>
