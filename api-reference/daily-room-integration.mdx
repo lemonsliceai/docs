@@ -22,12 +22,12 @@ X-API-Key: YOUR_API_KEY
 
 #### 2. Create a room
 
-Use the `POST /rooms` endpoint to create a Daily room configured with a Lemon Slice agent. The agent will automatically join the room once it's startup is complete.
+Use the `POST /liveai/rooms` endpoint to create a Daily room configured with a Lemon Slice agent. The agent will automatically join the room once it's startup is complete.
 
 ##### Example request
 
 ```bash
-curl -X POST https://lemonslice.com/api/rooms \
+curl -X POST https://lemonslice.com/api/liveai/rooms \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{ "agent_id": "YOUR_AGENT_ID" }'
