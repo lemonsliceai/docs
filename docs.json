@@ -44,14 +44,14 @@
           {
             "group": "Introduction",
             "pages": [
-              "api-reference/overview",
-              "api-reference/authentication"
+              "hosted/overview",
+              "hosted/authentication"
             ]
           },
           {
             "group": "Quick Start",
             "pages": [
-              "api-reference/daily-room-integration"
+              "hosted/daily-room-integration"
             ]
           },
           {
@@ -68,14 +68,14 @@
           {
             "group": "Introduction",
             "pages": [
-              "api-reference/overview",
-              "api-reference/authentication"
+              "self-managed/overview",
+              "self-managed/authentication"
             ]
           },
           {
             "group": "Quick Start",
             "pages": [
-              "api-reference/livekit-agent-integration"
+              "self-managed/livekit-agent-integration"
             ]
           },
           {
