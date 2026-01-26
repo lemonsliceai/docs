@@ -1,19 +1,19 @@
 ---
-title: "Daily Room Integration"
-description: "Use the Lemon Slice API to connect to your agent via a Daily.co room on any webpage."
+title: "Hosted Pipeline Integration"
+description: "Use the LemonSlice API to connect to your agent via a Daily.co room on any webpage."
 ---
 
-## Examples
+## Starter App
 
-Working examples can be found at the [Lemon Slice Examples Github Repo](https://github.com/lemonsliceai/lemonslice-examples)
+Find a working example on how to use the hosted pipelnie in our [LemonSlice Examples Github Repo](https://github.com/lemonsliceai/lemonslice-examples/tree/main/realtime-agent#lemonslice-realtime-agent).
 
 ## Getting Started
 
-Follow these steps to create your first Lemon Slice agent session and integrate it into your application.
+Follow these steps to create your first LemonSlice agent session and integrate it into your application.
 
 #### 1. Get your API key
 
-Retrieve your API Key from the Lemon Slice [dashboard](https://lemonslice.com/agents/api).\
+Retrieve your API Key from the LemonSlice [dashboard](https://lemonslice.com/agents/api).\
 All API requests must include this header:
 
 ```
@@ -22,7 +22,7 @@ X-API-Key: YOUR_API_KEY
 
 #### 2. Create a room
 
-Use the `POST /liveai/rooms` endpoint to create a Daily room configured with a Lemon Slice agent. The agent will automatically join the room once it's startup is complete.
+Use the `POST /liveai/rooms` endpoint to create a Daily room configured with a LemonSlice agent. The agent will automatically join the room once it's startup is complete.
 
 ##### Example request
 
@@ -50,11 +50,11 @@ await callObject.join({
 });
 ```
 
-Once joined, the Lemon Slice agent will connect and begin responding in the room.
+Once joined, the LemonSlice agent will connect and begin responding in the room.
 
-#### 4. Listen for Lemon Slice events
+#### 4. Listen for LemonSlice events
 
-Lemon Slice uses Daily’s `app-message` channel to push events about the agent, image updates, and errors.
+LemonSlice uses Daily’s `app-message` channel to push events about the agent, image updates, and errors.
 
 ##### Example event handler
 
@@ -81,11 +81,11 @@ Explore the rest of the API docs for more capabilities.
 
 
 ## Receiving Events
-Hook into the Daily event handler to get Lemon Slice specific events
+Hook into the Daily event handler to get LemonSlice specific events
 
 | Event Type               | Description                                                                                                               |
 | :----------------------- | :------------------------------------------------------------------------------------------------------------------------ |
-| `bot_ready`              | Fired when the Lemon Slice agent has successfully joined the Daily room and is ready to send and receive audio and video. |
+| `bot_ready`              | Fired when the LemonSlice agent has successfully joined the Daily room and is ready to send and receive audio and video. |
 | `idle_timeout`           | Emitted when the agent stops due to inactivity. The idle timeout threshold is defined by the agent’s configuration.       |
 | `user_transcription`     | Emitted when the user's speech has been finalized. Includes the field `transcription`. This event also captures messages sent by the user via text. |
 | `agent_transcription`    | Emitted when the agent's response has been finalized. Includes the field `transcription`.                                 |
@@ -138,7 +138,7 @@ useDailyEvent(
 
 ## Control Events
 
-Send events through Daily to control the Lemon Slice agent
+Send events through Daily to control the LemonSlice agent
 
 | Control Event | Description                                                                              |
 | :------------ | :--------------------------------------------------------------------------------------- |
