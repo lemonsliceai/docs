@@ -1,19 +1,25 @@
 ---
 title: "Overview"
-description: "High-level guide to the LemonSlice API: auth, core endpoints, and the typical integration flow."
+description: "Fully-managed pipeline: audio/text input → STT, LLM, TTS → synced avatar video output."
 ---
 
-## What is the LemonSlice API?
+## What is the LemonSlice Hosted Pipeline?
 
-The LemonSlice API lets you programmatically spin up real-time experiences around a Lemon Slice agent—either by creating a ready-to-join Daily room, or by creating a low-level “session” for transport-based real-time A/V pipelines.
+The LemonSlice Hosted Pipeline is a fully-managed conversational AI service that powers real-time avatar interactions. It takes user audio and text input, processes it through our managed STT (Speech-to-Text), LLM (Large Language Model), and TTS (Text-to-Speech) pipeline, and outputs synchronized avatar video with audio, all in real-time.
 
-If you’re building an end-user video call experience, you’ll typically start with [Create room](https://lemonslice.com/docs/api-reference/create-room).  
-If you’re building a deeper realtime integration (e.g., LiveKit Agents), you’ll typically start with [Create session](https://lemonslice.com/docs/api-reference/create-session).
+The API returns a URL that can be joined to talk to the avatar in real-time.
 
----
 
-## Base URL
+## When to use the LemonSlice Hosted Pipeline?
 
-All requests are standard HTTPS requests to:
+Use the Hosted Pipeline if you want a low-latency solution where LemonSlice handles the entire audio and video pipeline for you. We manage the STT, LLM, and TTS processing based on the personality defined in your LemonSlice agent. All you need to do is handle the UI to display the avatar to your users. 
 
-`https://lemonslice.com/api`
+The Hosted Pipeline currently works with [Daily.co](https://docs.daily.co/) rooms and UI components, making it easy to integrate real-time avatar conversations into your application.
+
+
+## Pricing
+
+| Annual Plan | Starter | Creator | Professional | Scale |
+|------|:-------:|:-------:|:------------:|:-----:|
+| **$/min (included)** | $0.2560 | $0.2370 | $0.2133 | $0.2133 |
+| **$/min (overage)** | $0.35 | $0.30 | $0.30 | $0.30 |
