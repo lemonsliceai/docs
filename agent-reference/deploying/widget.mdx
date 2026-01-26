@@ -1,0 +1,169 @@
+---
+title: "Widget reference"
+description: "Complete reference for the LemonSlice Agent Widget configuration and usage."
+---
+
+The LemonSlice Agent Widget is an embeddable web component that enables real-time video chat with LemonSlice AI agents. It provides a floating or inline widget that connects users to LemonSlice AI agents via video and audio.
+
+LemonSlice agents are created on [lemonslice.com](https://lemonslice.com/).
+
+## Installation
+
+Add the widget to any webpage with a single HTML tag:
+
+```html
+<lemon-slice-widget agent-id="agent_id"></lemon-slice-widget>
+<script type="module" src="https://unpkg.com/@lemonsliceai/lemon-slice-widget"></script>
+```
+
+## Configuration
+
+### Attributes
+
+#### agent-id (required)
+
+Your LemonSlice agent ID.
+
+```html
+<lemon-slice-widget agent-id="agent_id"></lemon-slice-widget>
+```
+
+#### inline
+
+Display widget inline instead of floating. Default: `false`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" inline></lemon-slice-widget>
+```
+
+#### show-minimize-button
+
+Show or hide the minimize button. Default: `true`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" show-minimize-button="false"></lemon-slice-widget>
+```
+
+#### initial-state
+
+Initial widget state on load. Options: `"minimized"`, `"active"`, or `"hidden"`. Default: `"minimized"`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" initial-state="active"></lemon-slice-widget>
+```
+
+#### controlled-widget-state
+
+Dynamically control widget state. Options: `"minimized"`, `"active"`, or `"hidden"`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" controlled-widget-state="active"></lemon-slice-widget>
+```
+
+#### controlled-show-minimize-button
+
+Dynamically control minimize button visibility. Options: `"true"` or `"false"`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" controlled-show-minimize-button="false"></lemon-slice-widget>
+```
+
+#### custom-active-width
+
+Custom width for the active widget state in pixels. Default: `320`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" custom-active-width="400"></lemon-slice-widget>
+```
+
+#### custom-active-height
+
+Custom height for the active widget state in pixels. Default: `480`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" custom-active-height="600"></lemon-slice-widget>
+```
+
+#### custom-minimized-width
+
+Custom width for the minimized widget state in pixels.
+
+```html
+<lemon-slice-widget agent-id="agent_id" custom-minimized-width="80"></lemon-slice-widget>
+```
+
+#### custom-minimized-height
+
+Custom height for the minimized widget state in pixels.
+
+```html
+<lemon-slice-widget agent-id="agent_id" custom-minimized-height="80"></lemon-slice-widget>
+```
+
+#### video-button-color-hex
+
+Hex color (with or without `#`) used for the minimized video chat button. Default: `#919191`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" video-button-color-hex="#FF4FD8"></lemon-slice-widget>
+```
+
+#### video-button-color-opacity
+
+Opacity for the video chat button color in the range `[0, 1]`. Default: `0.3`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" video-button-color-opacity="0.8"></lemon-slice-widget>
+```
+
+#### hide-powered-by
+
+Hide the "Powered by Lemon Slice" branding. Default: `false`.
+
+```html
+<lemon-slice-widget agent-id="agent_id" hide-powered-by></lemon-slice-widget>
+```
+
+## Dynamic control
+
+Control the widget dynamically by updating attributes with JavaScript:
+
+```javascript
+const widget = document.querySelector('lemon-slice-widget');
+
+// Change widget state
+widget.setAttribute('controlled-widget-state', 'active');
+
+// Toggle minimize button
+widget.setAttribute('controlled-show-minimize-button', 'false');
+```
+
+## Examples
+
+### Start expanded
+
+```html
+<lemon-slice-widget agent-id="agent_id" initial-state="active"></lemon-slice-widget>
+```
+
+### Custom button color
+
+```html
+<lemon-slice-widget
+  agent-id="agent_id"
+  video-button-color-hex="#FF4FD8"
+  video-button-color-opacity="0.8"
+></lemon-slice-widget>
+```
+
+### Custom widget sizes
+
+```html
+<lemon-slice-widget
+  agent-id="agent_id"
+  custom-active-width="400"
+  custom-active-height="600"
+  custom-minimized-width="80"
+  custom-minimized-height="80"
+></lemon-slice-widget>
+```
