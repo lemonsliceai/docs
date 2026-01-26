@@ -1,6 +1,6 @@
 ---
 title: "Overview"
-description: "Fully-managed pipeline: audio/text input → STT, LLM, TTS → synced A/V output."
+description: "Fully-managed real-time pipeline to interact with a LemonSlice Agent."
 ---
 
 ![Hosted Diagram](/images/hosted-flow.png)
@@ -12,14 +12,16 @@ The LemonSlice Hosted Pipeline is a fully-managed conversational AI service that
 The API returns a URL that can be joined to talk to the avatar in real-time.
 
 
-## When to use the LemonSlice Hosted Pipeline?
+## When to use the LemonSlice Hosted Pipeline
 
-Use the Hosted Pipeline if you want a low-latency solution where LemonSlice handles the entire audio and video pipeline for you. We manage the STT, LLM, and TTS processing based on the personality defined in your LemonSlice agent. All you need to do is handle the UI to display the avatar to your users. 
+The Hosted Pipeline is the easiest option when you want to fully control the frontend experience while letting LemonSlice handle all the backend and audio/video processing. We manage the low-latency STT, LLM, and TTS pipeline based on the personality defined in your LemonSlice agent. All you need to do is handle the UI to display the avatar to your users. 
 
 The Hosted Pipeline currently works with [Daily.co](https://docs.daily.co/) rooms and UI components, making it easy to integrate real-time avatar conversations into your application.
 
 
 ## Pricing
+
+Pricing includes audio processing, LLM inference, and video generation.
 
 | Annual Plan | Starter | Creator | Professional | Scale |
 |------|:-------:|:-------:|:------------:|:-----:|
