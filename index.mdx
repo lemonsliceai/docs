@@ -1,13 +1,22 @@
 ---
-title: "Lemon Slice Documentation"
-description: "Explore our docs and guides to integrate Lemon Slice"
+title: "LemonSlice Documentation"
+description: "Explore our docs and guides to integrate LemonSlice"
 ---
 
+## Which product should I use?
+
+| Feature | Widget | Hosted Pipeline | Self-Managed Pipeline |
+|---------|:------:|:---------------:|:---------------------:|
+| Realtime Avatar Video | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> |
+| Synced A/V | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> |
+| Managed STT | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="x" size={20} color="red" /> |
+| Managed LLM | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="x" size={20} color="red" /> |
+| Managed TTS | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="x" size={20} color="red" /> |
+| Dynamic Avatar Selection | <Icon icon="x" size={20} color="red" /> | <Icon icon="x" size={20} color="red" /> | <Icon icon="check" size={20} color="green" /> |
+| Prebuilt UI | <Icon icon="check" size={20} color="green" /> | <Icon icon="x" size={20} color="red" /> | <Icon icon="x" size={20} color="red" /> |
+
 <Columns cols={2}>
-  <Card title="Widget reference" icon="image-portrait" href="/agent-reference" cta="Learn how to build and launch Lemon Slice agents.">
-    
-  </Card>
-  <Card title="API Reference" icon="code" href="/api-reference" cta="Learn how to integrate the Lemon Slice API with examples and tutorials.">
-    
-  </Card>
+  <Card title="Widget Reference" icon="image-portrait" href="/agent-reference" cta="Learn how to build and launch LemonSlice agents."></card>
+  <Card title="Hosted Pipeline Reference" icon="code" href="/hosted" cta="Learn how to integrate with the full service, hosted LemonSlice pipeline."></card>
+  <Card title="Self-Managed Pipeline Reference" icon="code" href="/self-managed" cta="Learn how to integrate with the self-managed LemonSlice pipeline."></card>    
 </Columns>

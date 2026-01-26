@@ -39,7 +39,7 @@
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Hosted",
         "groups": [
           {
             "group": "Introduction",
@@ -49,17 +49,39 @@
             ]
           },
           {
-            "group": "LiveAI Endpoints",
+            "group": "Quick Start",
             "pages": [
-              "api-reference/openapi.json POST /liveai/rooms",
-              "api-reference/openapi.json POST /liveai/sessions"
+              "api-reference/daily-room-integration"
             ]
           },
           {
-            "group": "Integrations",
+            "group": "Endpoints",
             "pages": [
-              "api-reference/livekit-agent-integration",
-              "api-reference/daily-room-integration"
+              "openapi.json POST /liveai/rooms"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Self-Managed",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "api-reference/overview",
+              "api-reference/authentication"
+            ]
+          },
+          {
+            "group": "Quick Start",
+            "pages": [
+              "api-reference/livekit-agent-integration"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "openapi.json POST /liveai/sessions"
             ]
           }
         ]
