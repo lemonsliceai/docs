@@ -75,7 +75,8 @@
           {
             "group": "Quick Start",
             "pages": [
-              "self-managed/livekit-agent-integration"
+              "self-managed/livekit-agent-integration",
+              "self-managed/daily-integration"
             ]
           },
           {

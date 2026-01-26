@@ -1,19 +1,34 @@
 ---
 title: "Overview"
-description: "High-level guide to the LemonSlice API: auth, core endpoints, and the typical integration flow."
+description: "Real-time video generation of a LemonSlice Avatar."
 ---
 
-## What is the LemonSlice API?
+![Self-Managed Diagram](/images/self_managed_diagram.png)
 
-The LemonSlice API lets you programmatically spin up real-time experiences around a Lemon Slice agent—either by creating a ready-to-join Daily room, or by creating a low-level “session” for transport-based real-time A/V pipelines.
+## What is the LemonSlice Self-Managed Pipeline?
 
-If you’re building an end-user video call experience, you’ll typically start with [Create room](https://lemonslice.com/docs/api-reference/create-room).  
-If you’re building a deeper realtime integration (e.g., LiveKit Agents), you’ll typically start with [Create session](https://lemonslice.com/docs/api-reference/create-session).
+The LemonSlice Self-Managed Pipeline handles avatar audio input and synchronized audio/video output, giving you full control over the conversation logic. LemonSlice only focuses on delivering high-quality, real-time avatar video that is perfectly synchronized with your audio output.
 
----
+The API creates a session that you connect to for bidirectional audio streaming and receiving synchronized avatar video.
 
-## Base URL
 
-All requests are standard HTTPS requests to:
+## When to use the LemonSlice Self-Managed Pipeline
 
-`https://lemonslice.com/api`
+Use the Self-Managed Pipeline when you need complete control over your STT, LLM, and TTS stack. This option is ideal when you have specific requirements for your conversation logic, want to use particular AI models, or need to integrate with existing infrastructure.
+
+The Self-Managed Pipeline currently works with [LiveKit](https://docs.livekit.io/agents/models/avatar/plugins/lemonslice/). A [Daily.co](Daily.co) integration is coming soon.
+
+<Note>
+The speed of your STT, LLM, and TTS processing directly affects the avatar's response time and interruption handling. Optimize these components for low latency to ensure natural, real-time conversations with timely interruption handling.
+</Note>
+
+
+## Get started now
+
+Follow our [quick start guide](/self-managed/livekit-agent-integration) to integrate LemonSlice with your own STT, LLM, and TTS stack using LiveKit.
+Alternatively, explore our [LiveKit agent example](https://github.com/lemonsliceai/lemonslice-examples/tree/main/self-managed-agent) to see a complete implementation.
+
+
+## Pricing
+
+View [pricing for video-only agents here](http://lemonslice.com/pricing?productType=video_only#products).
