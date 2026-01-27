@@ -17,10 +17,10 @@
             ]
       },
       {
-        "tab": "Widget reference",
+        "tab": "Widget",
         "groups": [
           {
-            "group": "Widget",
+            "group": "Introduction",
             "pages": [
               "agent-reference/widget/overview",
               "agent-reference/widget/widget",

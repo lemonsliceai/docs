@@ -1,11 +1,11 @@
 ---
 title: "LiveKit Integration"
-description: "Connect to a LemonSlice Avatar via the Livekit's Agents realtime framework"
+description: "Connect to a LemonSlice Avatar via LiveKit's Agents realtime framework"
 ---
 
 ## Overview
 
-[LiveKit Agents](https://docs.livekit.io/agents/) provides a realtime framework for voice, video, and physical AI agents. Through our open source integration you can seamlessly add a LemonSlice avatar to real-time voice AI systems.
+[LiveKit Agents](https://docs.livekit.io/agents/) provides a realtime framework for voice, video, and physical AI agents. Through our open-source integration you can seamlessly add a LemonSlice avatar to real-time voice AI systems.
 
 ## Quick Start
 
@@ -61,8 +61,6 @@ async def entrypoint(ctx: agents.JobContext):
         # Prompt to guide the avatar's demeanor
         agent_prompt="Be excited and happy. Use your hands while talking."
     )
-        
-    )
 
    # Start the avatar and wait for it to join
    await avatar.start(session, room=ctx.room)
@@ -92,6 +90,6 @@ The following resources provide more information about using LemonSlice with Liv
 <Columns cols={2}>
   <Card title="LemonSlice Session API Documentation" icon="book-open" href="https://lemonslice.com/docs/api-reference/create-session" cta="Reference for LemonSlice Session API."></Card>
   <Card title="LiveKit Documentation" icon="book-open" href="https://docs.livekit.io/intro/overview/" cta="Reference for the LiveKit platform."></Card>
-  <Card title="LemonSlice Livekit Example Agent" icon="hammer" href="https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent" cta="Ready-to-use LiveKit agent with avatar support using LemonSlice."></Card>
+  <Card title="LemonSlice LiveKit Example Agent" icon="hammer" href="https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent" cta="Ready-to-use LiveKit agent with avatar support using LemonSlice."></Card>
   <Card title="LiveKit Agents Playground" icon="shield-check" href="https://docs.livekit.io/agents/start/playground.md" cta="A virtual workbench to test your avatar agent using LiveKit."></Card>
 </Columns>
