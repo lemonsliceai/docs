@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Lemon Slice",
+  "name": "LemonSlice",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -17,10 +17,10 @@
             ]
       },
       {
-        "tab": "Widget reference",
+        "tab": "Widget",
         "groups": [
           {
-            "group": "Widget",
+            "group": "Introduction",
             "pages": [
               "agent-reference/widget/overview",
               "agent-reference/widget/widget",
@@ -39,27 +39,50 @@
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Hosted",
         "groups": [
           {
             "group": "Introduction",
             "pages": [
-              "api-reference/overview",
-              "api-reference/authentication"
+              "hosted/overview",
+              "hosted/authentication"
             ]
           },
           {
-            "group": "LiveAI Endpoints",
+            "group": "Quick Start",
             "pages": [
-              "api-reference/openapi.json POST /liveai/rooms",
-              "api-reference/openapi.json POST /liveai/sessions"
+              "hosted/daily-room-integration"
             ]
           },
           {
-            "group": "Integrations",
+            "group": "Endpoints",
             "pages": [
-              "api-reference/livekit-agent-integration",
-              "api-reference/daily-room-integration"
+              "openapi.json POST /liveai/rooms"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Self-Managed",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "self-managed/overview",
+              "self-managed/authentication"
+            ]
+          },
+          {
+            "group": "Quick Start",
+            "pages": [
+              "self-managed/livekit-agent-integration",
+              "self-managed/daily-integration"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "openapi.json POST /liveai/sessions"
             ]
           }
         ]

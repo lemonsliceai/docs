@@ -1,11 +1,11 @@
 ---
-title: "LiveKit Agents Integration"
-description: "Connect to a LemonSlice Agent via the Livekit's Agents realtime framework"
+title: "LiveKit Integration"
+description: "Connect to a LemonSlice Avatar via LiveKit's Agents realtime framework"
 ---
 
 ## Overview
 
-[LiveKit Agents](https://docs.livekit.io/agents/) provides a realtime framework for voice, video, and physical AI agents. Through our open source integration you can seamlessly add a LemonSlice avatar to real-time voice AI systems.
+[LiveKit Agents](https://docs.livekit.io/agents/) provides a realtime framework for voice, video, and physical AI agents. Through our open-source integration you can seamlessly add a LemonSlice avatar to real-time voice AI systems.
 
 ## Quick Start
 
@@ -61,8 +61,6 @@ async def entrypoint(ctx: agents.JobContext):
         # Prompt to guide the avatar's demeanor
         agent_prompt="Be excited and happy. Use your hands while talking."
     )
-        
-    )
 
    # Start the avatar and wait for it to join
    await avatar.start(session, room=ctx.room)
@@ -90,8 +88,8 @@ Parameters for `lemonslice.AvatarSession`. Either `agent_image_url` or `agent_id
 The following resources provide more information about using LemonSlice with LiveKit Agents.
 
 <Columns cols={2}>
-  <Card title="LemonSlice Session API Documentation" icon="book-open" href="https://lemonslice.com/docs/api-reference/create-session" cta="Reference for LemonSlice Session API."></Card>
-  <Card title="LiveKit Documentation" icon="book-open" href="https://docs.livekit.io/intro/overview/" cta="Reference for the LiveKit platform."></Card>
-  <Card title="LemonSlice Livekit Example Agent" icon="hammer" href="https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent" cta="Ready-to-use LiveKit agent with avatar support using LemonSlice."></Card>
-  <Card title="LiveKit Agents Playground" icon="shield-check" href="https://docs.livekit.io/agents/start/playground.md" cta="A virtual workbench to test your avatar agent using LiveKit."></Card>
+  <Card title="Ready-to-use LemonSlice LiveKit Example Agent" icon="code" href="https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent" cta="View example"></Card>
+  <Card title="LemonSlice Salary Negotiation Coach Example" icon="code" href="https://github.com/livekit-examples/python-agents-examples/tree/main/complex-agents/avatars/lemonslice#lemonslice-salary-negotiation-coach" cta="View example"></Card>
+  <Card title="LiveKit Documentation" icon="book-open" href="https://docs.livekit.io/intro/overview/" cta="View docs"></Card>
+  <Card title="LiveKit Agents Playground" icon="shield-check" href="https://docs.livekit.io/agents/start/playground.md" cta="Test agent"></Card>
 </Columns>

@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Lemon Slice",
-    "description": "An API that gives access to a Lemon Slice agent via a Daily room.",
+    "title": "LemonSlice",
+    "description": "An API that gives access to a LemonSlice agent via a Daily room.",
     "license": {
       "name": "MIT",
       "identifier": "MIT"
@@ -23,10 +23,10 @@
     "/liveai/rooms": {
       "post": {
         "summary": "Create room",
-        "description": "Creates a Daily room configured with the given Lemon Slice agent.",
+        "description": "Creates a Daily room configured with the given LemonSlice agent.",
         "operationId": "createRoom",
         "requestBody": {
-          "description": "The Lemon Slice agent to use in the room.",
+          "description": "The LemonSlice agent to use in the room.",
           "content": {
             "application/json": {
               "schema": {
@@ -126,7 +126,7 @@
     "/liveai/sessions": {
       "post": {
         "summary": "Create session",
-        "description": "Creates an agent session that takes in agent audio and returns synced video with the agent audio",
+        "description": "Creates an agent session that takes in agent audio and returns synced video with the agent audio.",
         "operationId": "createSession",
         "requestBody": {
           "description": "The properties used to create an agent session.",
@@ -372,7 +372,7 @@
         "required": ["session_id"],
         "properties": {
           "session_id": {
-            "description": "The id of the session",
+            "description": "The ID of the session.",
             "type": "string",
             "example": "livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
           }
