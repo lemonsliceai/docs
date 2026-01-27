@@ -23,6 +23,7 @@
             "group": "Introduction",
             "pages": [
               "agent-reference/widget/overview",
+              "agent-reference/widget/usage",
               "agent-reference/widget/widget",
               "agent-reference/widget/control"
             ]
