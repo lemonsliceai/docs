@@ -3,25 +3,20 @@ title: "Overview"
 description: "Fully-managed real-time pipeline to interact with a LemonSlice Agent."
 ---
 
-![Hosted Diagram](/images/hosted-diagram.png)
+![Hosted Diagram](/images/hosted_diagram.png)
+
 
 ## What is the LemonSlice Hosted Pipeline?
 
-The LemonSlice Hosted Pipeline is a fully-managed conversational AI service that powers real-time avatar interactions. It takes user audio and text input, processes it through our managed STT (Speech-to-Text), LLM (Large Language Model), and TTS (Text-to-Speech) pipeline, and outputs synchronized avatar video with audio, all in real-time.
+The Hosted Pipeline is a fully-managed conversational AI service. Use it when you want to control the frontend experience while letting LemonSlice handle everything else.
 
-The API returns a URL that can be joined to talk to the agent in real-time.
-
-
-## When to use the LemonSlice Hosted Pipeline
-
-The Hosted Pipeline is the easiest option when you want to fully control the frontend experience while letting LemonSlice handle all the backend and audio/video processing. We manage the low-latency STT, LLM, and TTS pipeline based on the personality defined in your LemonSlice agent. All you need to do is handle the UI to display the avatar to your users. 
-
-The Hosted Pipeline currently works with [Daily.co](https://docs.daily.co/) rooms and UI components, making it easy to integrate real-time avatar conversations into your application.
+Create a video agent in the LemonSlice web app and get the agent ID. LemonSlice manages STT (transcription), LLM, TTS, and avatar generation. You handle the UI. Currently works with [Daily.co](Daily.co) rooms and UI components.
 
 
 ## Get started now
 
-Follow our simple [quick start guide](/hosted/daily-room-integration) to add a LemonSlice avatar to your application today.
+Follow our simple [quick start guide](/hosted/daily-integration) to add a LemonSlice avatar to your application today.
+
 Alternatively, clone our [real-time agent example repo](https://github.com/lemonsliceai/lemonslice-examples/tree/main/realtime-agent#lemonslice-realtime-agent) to start from a working example.
 
 

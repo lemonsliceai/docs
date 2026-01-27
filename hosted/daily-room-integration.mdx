@@ -5,7 +5,7 @@ description: "Use the LemonSlice API to connect to your agent via a Daily.co roo
 
 ## Starter App
 
-Find a working example on how to use the hosted pipelnie in our [LemonSlice Examples Github Repo](https://github.com/lemonsliceai/lemonslice-examples/tree/main/realtime-agent#lemonslice-realtime-agent).
+Find a working example on how to use the hosted pipeline in our [LemonSlice Examples GitHub Repo](https://github.com/lemonsliceai/lemonslice-examples/tree/main/realtime-agent#lemonslice-realtime-agent).
 
 ## Getting Started
 
@@ -13,7 +13,8 @@ Follow these steps to create your first LemonSlice agent session and integrate i
 
 #### 1. Get your API key
 
-Retrieve your API Key from the LemonSlice [dashboard](https://lemonslice.com/agents/api).\
+Retrieve your API Key from the LemonSlice [dashboard](https://lemonslice.com/agents/api).
+
 All API requests must include this header:
 
 ```
@@ -22,7 +23,7 @@ X-API-Key: YOUR_API_KEY
 
 #### 2. Create a room
 
-Use the `POST /liveai/rooms` endpoint to create a Daily room configured with a LemonSlice agent. The agent will automatically join the room once it's startup is complete.
+Use the `POST /liveai/rooms` endpoint to create a Daily room configured with a LemonSlice agent. The agent will automatically join the room once its startup is complete.
 
 ##### Example request
 
@@ -81,7 +82,7 @@ Explore the rest of the API docs for more capabilities.
 
 
 ## Receiving Events
-Hook into the Daily event handler to get LemonSlice specific events
+Hook into the Daily event handler to get LemonSlice specific events.
 
 | Event Type               | Description                                                                                                               |
 | :----------------------- | :------------------------------------------------------------------------------------------------------------------------ |
@@ -138,7 +139,7 @@ useDailyEvent(
 
 ## Control Events
 
-Send events through Daily to control the LemonSlice agent
+Send events through Daily to control the LemonSlice agent.
 
 | Control Event | Description                                                                              |
 | :------------ | :--------------------------------------------------------------------------------------- |
@@ -186,3 +187,10 @@ sendAppMessage(
 - The avatar retains its core identity and proportions, while updating the visual context
 - Once the image update completes, the agent continues normal interaction
 <Note>**Agent setup requirement:** `Allow users to modify appearance` must be enabled in the agent configuration. This setting is *enabled by default for all newly created agents.*</Note>
+
+
+<Columns cols={3}>
+  <Card title="LemonSlice Room API Documentation" icon="book-open" href="https://lemonslice.com/docs/api-reference/create-room" cta="Reference for LemonSlice Room API."></Card>
+  <Card title="Daily Documentation" icon="book-open" href="https://docs.daily.co" cta="Reference for the Daily platform."></Card>
+  <Card title="LemonSlice Daily Example" icon="hammer" href="https://github.com/lemonsliceai/lemonslice-examples/tree/main/realtime-agent#lemonslice-realtime-agent" cta="Ready-to-use example to connect to a LemonSlice Agent."></Card>
+</Columns>

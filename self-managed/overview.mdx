@@ -7,16 +7,9 @@ description: "Real-time video generation of a LemonSlice Avatar."
 
 ## What is the LemonSlice Self-Managed Pipeline?
 
-The LemonSlice Self-Managed Pipeline handles avatar audio input and synchronized audio/video output, giving you full control over the conversation logic. LemonSlice only focuses on delivering high-quality, real-time avatar video that is perfectly synchronized with your audio output.
+The Self-Managed Pipeline is standalone avatar model. Use it when you want full control over every component of your video agent pipeline.
 
-The API creates a session that you connect to for bidirectional audio streaming and receiving synchronized avatar video.
-
-
-## When to use the LemonSlice Self-Managed Pipeline
-
-Use the Self-Managed Pipeline when you need complete control over your STT, LLM, and TTS stack. This option is ideal when you have specific requirements for your conversation logic, want to use particular AI models, or need to integrate with existing infrastructure.
-
-The Self-Managed Pipeline currently works with [LiveKit](https://docs.livekit.io/agents/models/avatar/plugins/lemonslice/). A [Daily.co](Daily.co) integration is coming soon.
+Bring your own STT, LLM, and TTS. LemonSlice handles avatar generation only. You manage orchestration, infrastructure, and UI. Currently works with the LiveKit agents framework.
 
 <Note>
 The speed of your STT, LLM, and TTS processing directly affects the avatar's response time and interruption handling. Optimize these components for low latency to ensure natural, real-time conversations with timely interruption handling.
@@ -26,7 +19,8 @@ The speed of your STT, LLM, and TTS processing directly affects the avatar's res
 ## Get started now
 
 Follow our [quick start guide](/self-managed/livekit-agent-integration) to integrate LemonSlice with your own STT, LLM, and TTS stack using LiveKit.
-Alternatively, explore our [LiveKit agent example](https://github.com/lemonsliceai/lemonslice-examples/tree/main/self-managed-agent) to see a complete implementation.
+
+Alternatively, explore our [LiveKit agent example](https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent#livekit-lemonslice-agent) to see a complete implementation.
 
 
 ## Pricing
