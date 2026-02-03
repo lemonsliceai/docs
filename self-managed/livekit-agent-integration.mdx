@@ -20,22 +20,28 @@ This section includes a basic usage example and some reference material. For lin
    * [LemonSlice Agent ID](https://lemonslice.com/agents)
 
      <Note>Selected voices and personalities for a LemonSlice agent will be ignored when using the LiveKit plugin.</Note> 
-3. LiveKit Agents Python App
+3. LiveKit Agents App
    * Your own existing application, or
-   * The ready-to-use [LemonSlice LiveKit Agent Example](https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent), or
-   * Follow the [LiveKit VoiceAI quickstart](https://docs.livekit.io/agents/start/voice-ai-quickstart/) to create one.
+   * The ready-to-use [LemonSlice LiveKit Agent Python Example](https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent), or
+   * Follow the [LiveKit VoiceAI quickstart](https://docs.livekit.io/agents/start/voice-ai-quickstart/) for Python or Node.js to create one.
 
 ### Integration Guide
 
 <Steps>
   <Step title="Install the plugin">
-    1. Within your LiveKit Agents app, install the plugin from PyPi:
-    ```shell
+    1. Within your LiveKit Agents app, install the plugin:
+    <CodeGroup>
+    ```shell PYTHON
+    # When using PIP
     pip install "livekit-agents[lemonslice]~=1.3"
-    ```
-    ```shell
+
+    # When using UV
     uv add "livekit-plugins-lemonslice~=1.3"
     ```
+    ```shell NODE.JS
+    pnpm add @livekit/agents-plugin-lemonslice
+    ```
+    </CodeGroup>
   </Step>
   <Step title="Authenticate">
     1. Create a [LemonSlice API key](https://lemonslice.com/agents/api)
@@ -43,7 +49,9 @@ This section includes a basic usage example and some reference material. For lin
   </Step>
   <Step title="Add AvatarSession to AgentSession">
     In your LiveKit Agents app, create a `lemonslice.AvatarSession` alongside your `AgentSession`:
-    ```python {3,12-17}
+
+<CodeGroup>
+```python PYTHON {3,12-17}
 from livekit import agents
 from livekit.agents import AgentSession, RoomOutputOptions
 from livekit.plugins import lemonslice
@@ -62,21 +70,52 @@ async def entrypoint(ctx: agents.JobContext):
         agent_prompt="Be excited and happy. Use your hands while talking."
     )
 
-   # Start the avatar and wait for it to join
-   await avatar.start(session, room=ctx.room)
+    # Start the avatar and wait for it to join
+    await avatar.start(session, room=ctx.room)
 
-   # Start your agent session with the user
-   await session.start(
-      # ... room, agent, room_options, etc....
-   )
+    # Start your agent session with the user
+    await session.start(
+        # ... room, agent, room_options, etc....
+    )
 ```
-Parameters for `lemonslice.AvatarSession`. Either `agent_image_url` or `agent_id` is required.
-| Parameter         | Description                                                                                                                    |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `agent_image_url` | A URL to an agent image to use.                                                                                                |
-| `agent_id`        | The ID of the LemonSlice agent.                                                                                                |
-| `agent_prompt`    | *(Optional)* A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, "feel excited" or "look sad") rather than precise or deterministic actions.                                                   |
-| `idle_timeout`    | *(Optional)* Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout. |
+
+```javascript NODE.JS {2,8-15}
+import { voice } from '@livekit/agents';
+import * as lemonslice from '@livekit/agents-plugin-lemonslice';
+
+const session = new voice.AgentSession({
+    // Add STT, LLM, TTS, and other components here
+});
+
+const avatar = new lemonslice.AvatarSession({
+    personaConfig: {
+        // Publicly accessible image URL for the avatar
+        agentImageUrl: "...",
+        // Prompt to guide the avatar's demeanor
+        agentPrompt: "Be excited and happy. Use your hands while talking.",
+    },
+});
+
+// Start the avatar and wait for it to join
+await avatar.start(session, room);
+
+// Start your agent session with the user
+await session.start(
+    // ... room, agent, room_options, etc.
+);
+```
+</CodeGroup>
+
+  Parameters for `lemonslice.AvatarSession`. Either `agent_image_url` or `agent_id` is required.
+  | Parameter         | Description                                                                                                                    |
+  | ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+  | `agent_image_url` | A URL to an agent image to use.                                                                                                |
+  | `agent_id`        | The ID of the LemonSlice agent.                                                                                                |
+  | `agent_prompt`    | *(Optional)* A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, "feel excited" or "look sad") rather than precise or deterministic actions.                                                   |
+  | `idle_timeout`    | *(Optional)* Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout. |
+  
+  <Note>JavaScript parameters use camelCase. For example: `agent_image_url` becomes `agentImageUrl`.</Note>
+  
   </Step>
   <Step title="Preview">
     Preview the avatar in the [Agents Playground](https://docs.livekit.io/agents/start/playground.md) or a frontend [starter app](https://docs.livekit.io/agents/start/frontend.md#starter-apps) that you build.
@@ -88,8 +127,10 @@ Parameters for `lemonslice.AvatarSession`. Either `agent_image_url` or `agent_id
 The following resources provide more information about using LemonSlice with LiveKit Agents.
 
 <Columns cols={2}>
-  <Card title="Ready-to-use LemonSlice LiveKit Example Agent" icon="code" href="https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent" cta="View example"></Card>
+  <Card title="Ready-to-use LemonSlice LiveKit Python Example Agent" icon="code" href="https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent" cta="View example"></Card>
+  <Card title="LemonSlice LiveKit JS Example Agent" icon="code" href="https://github.com/livekit/agents-js/blob/main/examples/src/lemonslice_realtime_avatar.ts" cta="View example"></Card>
   <Card title="LemonSlice Salary Negotiation Coach Example" icon="code" href="https://github.com/livekit-examples/python-agents-examples/tree/main/complex-agents/avatars/lemonslice#lemonslice-salary-negotiation-coach" cta="View example"></Card>
   <Card title="LiveKit Documentation" icon="book-open" href="https://docs.livekit.io/intro/overview/" cta="View docs"></Card>
   <Card title="LiveKit Agents Playground" icon="shield-check" href="https://docs.livekit.io/agents/start/playground.md" cta="Test agent"></Card>
+  <Card title="LiveKit Frontend Starter Apps" icon="cog" href="https://docs.livekit.io/frontends/start/frontends/" cta="Start building"></Card>
 </Columns>
