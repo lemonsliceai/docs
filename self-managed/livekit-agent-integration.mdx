@@ -20,16 +20,16 @@ This section includes a basic usage example and some reference material. For lin
    * [LemonSlice Agent ID](https://lemonslice.com/agents)
 
      <Note>Selected voices and personalities for a LemonSlice agent will be ignored when using the LiveKit plugin.</Note> 
-3. LiveKit Agents Python App
+3. LiveKit Agents App
    * Your own existing application, or
-   * The ready-to-use [LemonSlice LiveKit Agent Example](https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent), or
-   * Follow the [LiveKit VoiceAI quickstart](https://docs.livekit.io/agents/start/voice-ai-quickstart/) to create one.
+   * The ready-to-use [LemonSlice LiveKit Agent Python Example](https://github.com/lemonsliceai/lemonslice-examples/tree/main/livekit-lemonslice-agent), or
+   * Follow the [LiveKit VoiceAI quickstart](https://docs.livekit.io/agents/start/voice-ai-quickstart/) for Python or Node.js to create one.
 
 ### Integration Guide
 
 <Steps>
   <Step title="Install the plugin">
-    1. Within your LiveKit Agents app, install the plugin from PyPi:
+    1. Within your LiveKit Agents app, install the plugin:
     <CodeGroup>
     ```shell PYTHON
     # When using PIP
@@ -51,7 +51,7 @@ This section includes a basic usage example and some reference material. For lin
     In your LiveKit Agents app, create a `lemonslice.AvatarSession` alongside your `AgentSession`:
 
 <CodeGroup>
-```python Python
+```python PYTHON {3,12-17}
 from livekit import agents
 from livekit.agents import AgentSession, RoomOutputOptions
 from livekit.plugins import lemonslice
@@ -79,7 +79,7 @@ async def entrypoint(ctx: agents.JobContext):
     )
 ```
 
-```javascript Node.js
+```javascript NODE.JS {2,8-15}
 import { voice } from '@livekit/agents';
 import * as lemonslice from '@livekit/agents-plugin-lemonslice';
 
