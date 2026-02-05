@@ -50,7 +50,8 @@
                 "example": {
                   "room_url": "https://lemonslice.daily.co/abc123",
                   "token": "eyJhbGciOiJIUzI1NiIsInR5a...",
-                  "image_url": "https://cdn.lemonslice.com/agents/agent_abc123.png"
+                  "image_url": "https://cdn.lemonslice.com/agents/agent_abc123.png",
+                  "session_id": "3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
                 }
               }
             }
@@ -275,7 +276,7 @@
       },
       "Room": {
         "type": "object",
-        "required": ["room_url", "token", "image_url"],
+        "required": ["room_url", "token", "image_url", "session_id"],
         "properties": {
           "room_url": {
             "description": "The Daily room URL.",
@@ -292,6 +293,12 @@
             "type": "string",
             "format": "uri",
             "example": "https://cdn.lemonslice.com/agents/agent_abc123.png"
+          },
+          "session_id": {
+            "description": "A unique identifier for the room's session.",
+            "type": "string",
+            "format": "string",
+            "example": "3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
           }
         }
       },
