@@ -128,10 +128,8 @@ await session.start(
   </Step>
   <Step title="Shutdown the LiveKit room">
     Gracefully shut down the LiveKit aent to properly terminate the LemonSlice avatar session.
-    
-    Call `ctx.room.disconnect()` to close the LiveKit room connection.
-    
-    Or, call `ctx.shutdown()` to stop the Agent's JobContext if you don't want to shutdown the LiveKit room.
+    1. Call `ctx.room.disconnect()` to close the LiveKit room connection.
+    2. Call `ctx.shutdown()` to stop the Agent's JobContext if you don't want to shutdown the LiveKit room.
     
     Where `ctx` is LiveKit's `agents.JobContext` defined by the function annotated with `@server.rtc_session()`
     ```python
