@@ -126,6 +126,12 @@ await session.start(
   <Step title="Preview">
     Preview the avatar in the [Agents Playground](https://docs.livekit.io/agents/start/playground.md) or a frontend [starter app](https://docs.livekit.io/agents/start/frontend.md#starter-apps) that you build.
   </Step>
+  <Step title="Shutdown the LiveKit room">
+    Gracefully shut down the LiveKit room to properly terminate the LemonSlice avatar session.
+    Call `ctx.room.disconnect()` to close the LiveKit room connection.
+
+    <Warning>If the LiveKit room is not explicitly shut down, the LemonSlice session will remain active until the configured idle timeout is reached or the 30-minute maximum session duration expires.</Warning>
+  </Step>
 </Steps>
 
 ## Additional resources
