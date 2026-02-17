@@ -92,12 +92,10 @@ const session = new voice.AgentSession({
 });
 
 const avatar = new lemonslice.AvatarSession({
-    personaConfig: {
-        // Publicly accessible image URL for the avatar
-        agentImageUrl: "...",
-        // Prompt to guide the avatar's demeanor
-        agentPrompt: "Be excited and happy. Use your hands while talking.",
-    },
+    // Publicly accessible image URL for the avatar
+    agentImageUrl: "...",
+    // Prompt to guide the avatar's demeanor
+    agentPrompt: "Be excited and happy. Use your hands while talking.",
 });
 
 // Start the avatar and wait for it to join
