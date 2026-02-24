@@ -287,7 +287,7 @@
                     "session_status": {
                       "type": "string",
                       "enum": ["QUEUED", "ACTIVE", "COMPLETED", "TIMED_OUT", "FAILED"],
-                      "description": "Current status of the session:\n\n- **QUEUED**: session is waiting for a GPU container\n- **ACTIVE**: agent is live\n- **COMPLETED**: session ended successfully\n- **TIMED_OUT**: GPU container timed out\n- **FAILED**: session ended with an error"
+                      "description": "Current status of the session:\n\n- **QUEUED**: session is waiting for a GPU container. Typically completes in seconds when warm containers are available. If all warm containers are in use, a cold start is required which may take up to 2.5 minutes.\n- **ACTIVE**: agent is live.\n- **COMPLETED**: session ended successfully.\n- **TIMED_OUT**: GPU container timed out.\n- **FAILED**: session ended with an error."
                     }
                   },
                   "required": ["session_status"]
