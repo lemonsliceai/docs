@@ -287,7 +287,7 @@
                     "session_status": {
                       "type": "string",
                       "enum": ["QUEUED", "ACTIVE", "COMPLETED", "TIMED_OUT", "FAILED"],
-                      "description": "Current status of the session. QUEUED: session is waiting for a GPU container. ACTIVE: agent is live. COMPLETED: session ended successfully. TIMED_OUT: GPU container timed out. FAILED: session ended with an error."
+                      "description": "Current status of the session.\n\nQUEUED: session is waiting for a GPU container.\n\nACTIVE: agent is live.\n\nCOMPLETED: session ended successfully.\n\nTIMED_OUT: GPU container timed out.\n\nFAILED: session ended with an error."
                     }
                   },
                   "required": ["session_status"]
@@ -336,6 +336,19 @@
                 },
                 "example": {
                   "detail": "Invalid API key"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Session not owned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Session does not belong to this account"
                 }
               }
             }
