@@ -259,6 +259,115 @@
           }
         }
       }
+    },
+    "/liveai/sessions/{session_id}": {
+      "get": {
+        "summary": "Get session",
+        "description": "Retrieves the current status of a session.",
+        "operationId": "getSession",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "The ID of the session to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session status retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "session_status": {
+                      "type": "string",
+                      "enum": ["QUEUED", "ACTIVE", "COMPLETED", "TIMED_OUT", "FAILED"],
+                      "description": "Current status of the session. QUEUED: session is waiting for a GPU container. ACTIVE: agent is live. COMPLETED: session ended successfully. TIMED_OUT: GPU container timed out. FAILED: session ended with an error."
+                    }
+                  },
+                  "required": ["session_status"]
+                },
+                "examples": {
+                  "queued": {
+                    "summary": "Session is queued",
+                    "value": {
+                      "session_status": "QUEUED"
+                    }
+                  },
+                  "active": {
+                    "summary": "Session is active",
+                    "value": {
+                      "session_status": "ACTIVE"
+                    }
+                  },
+                  "completed": {
+                    "summary": "Session completed",
+                    "value": {
+                      "session_status": "COMPLETED"
+                    }
+                  },
+                  "timed_out": {
+                    "summary": "Session timed out",
+                    "value": {
+                      "session_status": "TIMED_OUT"
+                    }
+                  },
+                  "failed": {
+                    "summary": "Session failed",
+                    "value": {
+                      "session_status": "FAILED"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Invalid API key"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Session not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Session not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                },
+                "example": {
+                  "detail": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
