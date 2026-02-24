@@ -83,7 +83,8 @@
           {
             "group": "Endpoints",
             "pages": [
-              "openapi.json POST /liveai/sessions"
+              "openapi.json POST /liveai/sessions",
+              "openapi.json GET /liveai/sessions/{session_id}"
             ]
           }
         ]
