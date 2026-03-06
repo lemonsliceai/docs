@@ -830,7 +830,7 @@
           "event": {
             "type": "string",
             "const": "update-image",
-            "description": "Update the avatar's base image."
+            "default": "update-image"
           },
           "image_url": {
             "type": "string",
@@ -847,7 +847,7 @@
           "event": {
             "type": "string",
             "const": "terminate",
-            "description": "Immediately shuts down the LemonSlice avatar."
+            "default": "terminate"
           }
         }
       },
