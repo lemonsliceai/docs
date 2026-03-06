@@ -26,16 +26,15 @@ Alternatively, explore our [LiveKit agent example](https://github.com/lemonslice
 
 Once your session is active, you can control it using the [control endpoint](/self-managed/endpoint/sessions). There are two control options:
 
-<Card title="Update Image" icon="image" horizontal>
-Update the avatar's appearance by providing a new `image_url`. The image must be publicly accessible. 
-
-**Important notes:**
+<Card title="Update Image" horizontal>
+Update the avatar's appearance by providing a new `image_url`. 
+- The image URL must be publicly accessible
 - Changing the image will stop any active audio playback
 - Best practice: Call this only when the avatar is silent in the idle state
 - Image transitions take up to 5 seconds to complete but on average only ~1 second
 </Card>
 
-<Card title="Terminate" icon="power-off" horizontal>
+<Card title="Terminate" horizontal>
 Immediately shut down the LemonSlice avatar session. This stops video generation and ends billing for the session.
 </Card>
 
