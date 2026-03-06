@@ -262,7 +262,7 @@
     },
     "/liveai/sessions/{session_id}": {
       "get": {
-        "summary": "Get session status and metadata",
+        "summary": "Get session",
         "description": "Retrieves the current status of an agent session. When the session is completed, returns additional metadata about the session.",
         "operationId": "getSession",
         "parameters": [
@@ -389,7 +389,7 @@
     },
     "/liveai/rooms/{room_id}": {
       "get": {
-        "summary": "Get room status and metadata",
+        "summary": "Get room",
         "description": "Retrieves the current status of a room session. When the session is completed, returns additional metadata about the room.",
         "operationId": "getRoomStatus",
         "parameters": [
