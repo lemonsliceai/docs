@@ -387,6 +387,132 @@
         }
       }
     },
+    "/liveai/sessions/{session_id}/control": {
+      "post": {
+        "summary": "Control session",
+        "description": "Send a control event to an active session.",
+        "operationId": "controlSession",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "The ID of the session to control. Accepts either the `session_id` returned from `POST /liveai/sessions` (Self-Managed) or the `room_id` returned from `POST /liveai/rooms` (Hosted).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "$ref": "#/components/schemas/UpdateImageEvent" },
+                  { "$ref": "#/components/schemas/TerminateEvent" }
+                ],
+                "discriminator": {
+                  "propertyName": "event",
+                  "mapping": {
+                    "update-image": "#/components/schemas/UpdateImageEvent",
+                    "terminate": "#/components/schemas/TerminateEvent"
+                  }
+                }
+              },
+              "examples": {
+                "update_image": {
+                  "summary": "Swap the avatar image",
+                  "description": "Replaces the avatar's image. This resets the model, so any audio currently playing will be cut off — best called when the avatar is silent. The image swap takes up to 5 seconds. The `image_url` must be publicly accessible.",
+                  "value": {
+                    "event": "update-image",
+                    "image_url": "https://example.com/avatar.jpg"
+                  }
+                },
+                "terminate": {
+                  "summary": "Terminate session",
+                  "value": {
+                    "event": "terminate"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Control event accepted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid event or missing required fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "image_url required for update-image event"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Invalid API key"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Session not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Session not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                },
+                "example": {
+                  "detail": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/liveai/rooms/{room_id}": {
       "get": {
         "summary": "Get room",
@@ -686,6 +812,33 @@
             "description": "The ID of the session.",
             "type": "string",
             "example": "livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
+          }
+        }
+      },
+      "UpdateImageEvent": {
+        "type": "object",
+        "required": ["event", "image_url"],
+        "properties": {
+          "event": {
+            "type": "string",
+            "enum": ["update-image"]
+          },
+          "image_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the new avatar image. Must be publicly accessible. The image swap resets the model — any audio currently playing will be cut off. Best called when the avatar is silent. The swap takes up to 5 seconds.",
+            "example": "https://example.com/avatar.jpg"
+          }
+        }
+      },
+      "TerminateEvent": {
+        "type": "object",
+        "required": ["event"],
+        "properties": {
+          "event": {
+            "type": "string",
+            "enum": ["terminate"],
+            "description": "Immediately shuts down the LemonSlice avatar and removes it from the WebRTC room."
           }
         }
       },
