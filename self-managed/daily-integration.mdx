@@ -1,4 +1,191 @@
 ---
-title: "Daily Integration (Coming Soon!)"
-description: "Connect to a LemonSlice Agent via a Daily.co Pipecat service"
+title: "Pipecat Integration"
+description: "Connect to a LemonSlice Avatar via Pipecat's Daily transport"
 ---
+
+## Overview
+
+LemonSlice offers integration with [Pipecat](https://www.pipecat.ai/), an open-source framework for building multimodal conversational agents by Daily. The `LemonSliceTransport` connects your Pipecat app to a LemonSlice avatar, enabling real-time voice conversations with synchronized video. The LemonSlice agent joins as a participant alongside the Pipecat bot and human user. It receives audio from the Pipecat pipeline's TTS layer and renders synchronized video and audio.
+
+## Prerequisites
+
+Before integrating LemonSlice with Pipecat, ensure you have the following:
+
+* [**LemonSlice API Key**](https://lemonslice.com/agents/api)
+
+* **LemonSlice agent information**
+  
+  Either a base image URL or a LemonSlice Agent ID.
+  * Agent base image — a publicly accessible image URL of your avatar, focused on the face. The image should be 368 × 560 pixels. LemonSlice will automatically center-crop your image to the target aspect ratio if the dimensions do not match the expected values. Best results are achieved with anthropomorphic images where the face and mouth are clearly identifiable.
+  * [LemonSlice Agent ID](https://lemonslice.com/agents)
+
+  <Note>Selected voices and personalities for a LemonSlice agent will be ignored when using the Pipecat plugin.</Note>
+
+* **Pipecat Python Application**
+  * Either your own existing application, or use the ready-to-use [LemonSlice Pipecat Example](https://github.com/pipecat-ai/pipecat/blob/main/examples/foundational/56-lemonslice-transport.py)
+
+## Integration Guide
+
+<Steps>
+  <Step title="Setup and Authentication">
+    1. Install the LemonSlice plugin for Pipecat.
+
+    ```shell
+    pip install "pipecat-ai[lemonslice]"
+    ```
+
+    2. In the `.env` file of your Pipecat application, add:
+
+    ```env
+    LEMONSLICE_API_KEY=<api_key>
+    LEMONSLICE_AGENT_ID=<your_agent_id>
+    ```
+
+    <Note>
+      * Replace `<api_key>` with your actual API key. You can generate one in the [LemonSlice Dashboard](https://lemonslice.com/agents/api).
+      * Replace `<your_agent_id>` with your LemonSlice Agent ID. Alternatively, you can use `agent_image_url` instead of `agent_id` when configuring the session request.
+    </Note>
+  </Step>
+
+  <Step title="Create the LemonSlice transport layer">
+    Create an instance of `LemonSliceTransport` by providing your bot name, LemonSlice API key, session request, and additional parameters.
+
+    ```python {6-9, 19-30}
+    import os
+    import sys
+    import aiohttp
+    from dotenv import load_dotenv
+    from loguru import logger
+    from pipecat.transports.lemonslice.transport import (
+        LemonSliceNewSessionRequest,
+        LemonSliceParams,
+        LemonSliceTransport,
+    )
+
+    load_dotenv(override=True)
+
+    logger.remove(0)
+    logger.add(sys.stderr, level="DEBUG")
+
+    async def main():
+        async with aiohttp.ClientSession() as session:
+            transport = LemonSliceTransport(
+                bot_name="Pipecat",
+                api_key=os.getenv("LEMONSLICE_API_KEY"),
+                session=session,
+                session_request=LemonSliceNewSessionRequest(
+                    agent_id=os.getenv("LEMONSLICE_AGENT_ID"),
+                ),
+                params=LemonSliceParams(
+                    audio_in_enabled=True,
+                    audio_out_enabled=True,
+                    microphone_out_enabled=False,
+                ),
+            )
+
+            # stt, tts, llm...
+    ```
+
+    <Note>See the [Pipecat LemonSlice API Reference](https://reference-server.pipecat.ai/en/latest/api/pipecat.transports.lemonslice.html) for full configuration details.</Note>
+
+    Parameters for `LemonSliceTransport`:
+    | Parameter | Description |
+    | --------- | ----------- |
+    | `bot_name` | The name of the Pipecat bot instance. |
+    | `api_key` | LemonSlice API key for authentication. |
+    | `session` | An `aiohttp.ClientSession` for making async HTTP requests. |
+    | `session_request` | *(Optional)* Session creation parameters. See `LemonSliceNewSessionRequest` below. |
+    | `params` | *(Optional)* Transport configuration. See `LemonSliceParams` below. |
+
+    Parameters for `LemonSliceNewSessionRequest`. Either `agent_id` or `agent_image_url` is required.
+    | Parameter | Description |
+    | --------- | ----------- |
+    | `agent_image_url` | A URL to an agent image to use. |
+    | `agent_id` | The ID of the LemonSlice agent. |
+    | `agent_prompt` | *(Optional)* A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. |
+    | `idle_timeout` | *(Optional)* Idle timeout in seconds. |
+    | `daily_room_url` | *(Optional)* Daily room URL to use. If not provided, LemonSlice will create a new room. |
+    | `daily_token` | *(Optional)* Daily token for authenticating with the room. |
+
+    Parameters for `LemonSliceParams`:
+    | Parameter | Default | Description |
+    | --------- | ------- | ----------- |
+    | `audio_in_enabled` | `True` | Whether to enable audio input from participants. |
+    | `audio_out_enabled` | `True` | Whether to enable audio output to participants. |
+    | `microphone_out_enabled` | `False` | Whether to enable microphone output track. |
+  </Step>
+
+  <Step title="Insert the LemonSlice transport layer into the pipeline">
+    Add the LemonSlice transport layer to your processing pipeline.
+
+    ```python {5, 10}
+            # stt, tts, llm...
+
+            pipeline = Pipeline(
+                [
+                    transport.input(),
+                    stt,
+                    user_aggregator,
+                    llm,
+                    tts,
+                    transport.output(),
+                    assistant_aggregator,
+                ]
+            )
+
+            task = PipelineTask(
+                pipeline,
+                params=PipelineParams(
+                    audio_in_sample_rate=16000,
+                    audio_out_sample_rate=16000,
+                ),
+            )
+    ```
+  </Step>
+
+  <Step title="Handle events">
+    Register event handlers for participant connections.
+
+    ```python
+    @transport.event_handler("on_client_connected")
+    async def on_client_connected(transport, participant):
+        print(f"Client connected: {participant}")
+
+    @transport.event_handler("on_client_disconnected")
+    async def on_client_disconnected(transport, participant):
+        print(f"Client disconnected: {participant}")
+    ```
+
+    | Event | Description |
+    | ----- | ----------- |
+    | `on_client_connected` | Participant (non-avatar) connected to the session. |
+    | `on_client_disconnected` | Participant (non-avatar) disconnected from the session. |
+
+    <Note>The LemonSlice avatar participant is automatically filtered out from these events. Only human participant connections trigger the event handlers.</Note>
+  </Step>
+
+  <Step title="Run the program">
+    1. Run the following command to execute the program:
+
+    ```shell
+    python <file-name>.py
+    ```
+
+    <Note>Replace `<file-name>` with your actual Python filename.</Note>
+
+    2. Use the **Daily room URL** provided in the console to interact with the avatar.
+
+    <Warning>If the session is not explicitly shut down, the LemonSlice session will remain active until the configured idle timeout is reached or the 30-minute maximum session duration expires.</Warning>
+  </Step>
+</Steps>
+
+## Additional resources
+
+The following resources provide more information about using LemonSlice with Pipecat.
+
+<Columns cols={2}>
+  <Card title="LemonSlice Pipecat Example" icon="code" href="https://github.com/pipecat-ai/pipecat/blob/main/examples/foundational/56-lemonslice-transport.py" cta="View example"></Card>
+  <Card title="Pipecat LemonSlice Docs" icon="book-open" href="https://docs.pipecat.ai/server/services/transport/lemonslice" cta="View docs"></Card>
+  <Card title="Pipecat LemonSlice API Reference" icon="code" href="https://reference-server.pipecat.ai/en/latest/api/pipecat.transports.lemonslice.html" cta="View reference"></Card>
+  <Card title="Pipecat Documentation" icon="book-open" href="https://docs.pipecat.ai/" cta="View docs"></Card>
+</Columns>
