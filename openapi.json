@@ -409,8 +409,16 @@
             "application/json": {
               "schema": {
                 "oneOf": [
-                  { "$ref": "#/components/schemas/UpdateImageEvent" },
-                  { "$ref": "#/components/schemas/TerminateEvent" }
+                  { 
+                    "$ref": "#/components/schemas/UpdateImageEvent", 
+                    "title": "Update Image",
+                    "description": "Update the avatar's base image with a new image. This resets the model, so any audio currently playing will be cut off — best called when the avatar is silent. The image swap takes up to 5 seconds."
+                  },
+                  { 
+                    "$ref": "#/components/schemas/TerminateEvent", 
+                    "title": "Terminate",
+                    "description": "Immediately shuts down the LemonSlice avatar and removes it from the WebRTC room."
+                  }
                 ],
                 "discriminator": {
                   "propertyName": "event",
@@ -423,7 +431,7 @@
               "examples": {
                 "update_image": {
                   "summary": "Swap the avatar image",
-                  "description": "Replaces the avatar's image. This resets the model, so any audio currently playing will be cut off — best called when the avatar is silent. The image swap takes up to 5 seconds. The `image_url` must be publicly accessible.",
+                  "description": "Replace the avatar's base image.",
                   "value": {
                     "event": "update-image",
                     "image_url": "https://example.com/avatar.jpg"
@@ -821,12 +829,13 @@
         "properties": {
           "event": {
             "type": "string",
-            "enum": ["update-image"]
+            "const": "update-image",
+            "description": "Update the avatar's base image."
           },
           "image_url": {
             "type": "string",
             "format": "uri",
-            "description": "URL of the new avatar image. Must be publicly accessible. The image swap resets the model — any audio currently playing will be cut off. Best called when the avatar is silent. The swap takes up to 5 seconds.",
+            "description": "URL of the new avatar image. Must be publicly accessible.",
             "example": "https://example.com/avatar.jpg"
           }
         }
@@ -837,8 +846,8 @@
         "properties": {
           "event": {
             "type": "string",
-            "enum": ["terminate"],
-            "description": "Immediately shuts down the LemonSlice avatar and removes it from the WebRTC room."
+            "const": "terminate",
+            "description": "Immediately shuts down the LemonSlice avatar."
           }
         }
       },
