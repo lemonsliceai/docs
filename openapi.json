@@ -396,7 +396,7 @@
           {
             "name": "session_id",
             "in": "path",
-            "description": "The ID of the session to control. Accepts either the `session_id` returned from `POST /liveai/sessions` (Self-Managed) or the `room_id` returned from `POST /liveai/rooms` (Hosted).",
+            "description": "The ID of the session to control.",
             "required": true,
             "schema": {
               "type": "string"
