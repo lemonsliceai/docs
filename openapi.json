@@ -262,8 +262,8 @@
     },
     "/liveai/sessions/{session_id}": {
       "get": {
-        "summary": "Get session",
-        "description": "Retrieves the current status of a session.",
+        "summary": "Get session status and metadata",
+        "description": "Retrieves the current status of an agent session. When the session is completed, returns additional metadata about the session.",
         "operationId": "getSession",
         "parameters": [
           {
@@ -278,7 +278,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Session status retrieved successfully.",
+            "description": "Session status retrieved successfully. Returns basic status for all states. When completed, includes the total cost in credits.",
             "content": {
               "application/json": {
                 "schema": {
@@ -288,6 +288,10 @@
                       "type": "string",
                       "enum": ["QUEUED", "ACTIVE", "COMPLETED", "TIMED_OUT", "FAILED"],
                       "description": "Current status of the session:\n\n- **QUEUED**: session is waiting for a GPU container. Typically completes in seconds when warm containers are available. If all warm containers are in use, a cold start is required which may take up to 2.5 minutes.\n- **ACTIVE**: agent is live.\n- **COMPLETED**: session ended successfully.\n- **TIMED_OUT**: GPU container timed out.\n- **FAILED**: session ended with an error."
+                    },
+                    "cost": {
+                      "type": "integer",
+                      "description": "Number of credits used for this session. Only returned when session_status is COMPLETED."
                     }
                   },
                   "required": ["session_status"]
@@ -308,7 +312,8 @@
                   "completed": {
                     "summary": "Session completed",
                     "value": {
-                      "session_status": "COMPLETED"
+                      "session_status": "COMPLETED",
+                      "cost": 10
                     }
                   },
                   "timed_out": {
@@ -362,6 +367,183 @@
                 },
                 "example": {
                   "detail": "Session not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                },
+                "example": {
+                  "detail": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveai/rooms/{room_id}": {
+      "get": {
+        "summary": "Get room status and metadata",
+        "description": "Retrieves the current status of a room session. When the session is completed, returns additional metadata about the room.",
+        "operationId": "getRoomStatus",
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "description": "The ID of the room to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Room status retrieved successfully. Returns basic status for all states. When completed, includes additional metadata such as cost, timestamps, end reason, and conversation messages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "session_status": {
+                      "type": "string",
+                      "enum": ["QUEUED", "ACTIVE", "COMPLETED", "TIMED_OUT", "FAILED"],
+                      "description": "Current status of the session:\n\n- **QUEUED**: session is waiting for a GPU container. Typically completes in seconds when warm containers are available. If all warm containers are in use, a cold start is required which may take up to 2.5 minutes.\n- **ACTIVE**: agent is live.\n- **COMPLETED**: session ended successfully.\n- **TIMED_OUT**: GPU container timed out.\n- **FAILED**: session ended with an error."
+                    },
+                    "cost": {
+                      "type": "integer",
+                      "description": "Number of credits used for this session. Only returned when session_status is COMPLETED."
+                    },
+                    "llm_ended_reason": {
+                      "type": "string",
+                      "description": "Reason the LLM session ended. Only returned when session_status is COMPLETED."
+                    },
+                    "llm_started_at": {
+                      "type": "integer",
+                      "description": "Unix timestamp when the LLM session started. Only returned when session_status is COMPLETED."
+                    },
+                    "llm_ended_at": {
+                      "type": "integer",
+                      "description": "Unix timestamp when the LLM session ended. Only returned when session_status is COMPLETED."
+                    },
+                    "messages": {
+                      "type": "array",
+                      "description": "Array of messages exchanged during the session. Only returned when session_status is COMPLETED.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "role": {
+                            "type": "string",
+                            "enum": ["user", "agent"],
+                            "description": "Role of the message sender."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Content of the message."
+                          },
+                          "seconds_from_start": {
+                            "type": "integer",
+                            "description": "Number of seconds from the start of the session when this message was sent."
+                          }
+                        },
+                        "required": ["role", "message", "seconds_from_start"]
+                      }
+                    }
+                  },
+                  "required": ["session_status"]
+                },
+                "examples": {
+                  "queued": {
+                    "summary": "Room is queued",
+                    "value": {
+                      "session_status": "QUEUED"
+                    }
+                  },
+                  "active": {
+                    "summary": "Room is active",
+                    "value": {
+                      "session_status": "ACTIVE"
+                    }
+                  },
+                  "completed": {
+                    "summary": "Room completed with full details",
+                    "value": {
+                      "session_status": "COMPLETED",
+                      "cost": 10,
+                      "llm_ended_reason": "Client disconnected: 1000",
+                      "llm_started_at": 1772746376,
+                      "llm_ended_at": 1772746535,
+                      "messages": [
+                        {
+                          "role": "user",
+                          "message": "hello",
+                          "seconds_from_start": 0
+                        },
+                        {
+                          "role": "agent",
+                          "message": "Hello! How can I assist you today?",
+                          "seconds_from_start": 10
+                        }
+                      ]
+                    }
+                  },
+                  "timed_out": {
+                    "summary": "Room timed out",
+                    "value": {
+                      "session_status": "TIMED_OUT"
+                    }
+                  },
+                  "failed": {
+                    "summary": "Room failed",
+                    "value": {
+                      "session_status": "FAILED"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Invalid API key"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Room does not belong to this account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Room does not belong to this account"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Room not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Room not found"
                 }
               }
             }
