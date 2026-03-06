@@ -130,9 +130,10 @@ await session.start(
     Preview the avatar in the [Agents Playground](https://docs.livekit.io/agents/start/playground.md) or a frontend [starter app](https://docs.livekit.io/agents/start/frontend.md#starter-apps) that you build.
   </Step>
   <Step title="Shutdown the LiveKit room">
-    Gracefully shut down the LiveKit aent to properly terminate the LemonSlice avatar session.
-    1. Call `ctx.room.disconnect()` to close the LiveKit room connection.
-    2. Call `ctx.shutdown()` to stop the Agent's JobContext if you don't want to shutdown the LiveKit room.
+    Gracefully shut down the LiveKit room, LiveKit agent, and/or LemonSlice avatar session:
+    1. Call `ctx.room.disconnect()` to close the LiveKit room connection which will end the LemonSlice avatar session.
+    2. Call `ctx.shutdown()` to stop the Agent's JobContext and the LemonSlice avatar session if you don't want to shutdown the LiveKit room.
+    3. Call the [session control endpoint](/self-managed/endpoint/sessions) with the `terminate` event to shutdown only the LemonSlice avatar without shutting down the LiveKit room or agent.
     
     Where `ctx` is LiveKit's `agents.JobContext` defined by the function annotated with `@server.rtc_session()`
     ```python
@@ -142,7 +143,7 @@ await session.start(
     ```
     
 
-    <Warning>If the LiveKit room is not explicitly shut down, the LemonSlice session will remain active until the configured idle timeout is reached or the 30-minute maximum session duration expires.</Warning>
+    <Warning>If the LemonSlice session is not shut down, the LemonSlice session will remain active until the configured idle timeout is reached or the 30-minute maximum session duration expires.</Warning>
   </Step>
 </Steps>
 
