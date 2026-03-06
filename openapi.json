@@ -830,7 +830,8 @@
           "event": {
             "type": "string",
             "const": "update-image",
-            "default": "update-image"
+            "default": "update-image",
+            "description": "update-image"
           },
           "image_url": {
             "type": "string",
@@ -847,7 +848,8 @@
           "event": {
             "type": "string",
             "const": "terminate",
-            "default": "terminate"
+            "default": "terminate",
+            "description": "terminate"
           }
         }
       },
