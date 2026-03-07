@@ -109,12 +109,13 @@ await session.start(
 </CodeGroup>
 
   Parameters for `lemonslice.AvatarSession`. Either `agent_image_url` or `agent_id` is required.
-  | Parameter         | Description                                                                                                                    |
-  | ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-  | `agent_image_url` | A URL to an agent image to use.                                                                                                |
-  | `agent_id`        | The ID of the LemonSlice agent.                                                                                                |
-  | `agent_prompt`    | *(Optional)* A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, "feel excited" or "look sad") rather than precise or deterministic actions.                                                   |
-  | `idle_timeout`    | *(Optional)* Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout. |
+  | Parameter | Description |
+  | --------- | ----------- |
+  | `agent_image_url` | A URL to an agent image to use. |
+  | `agent_id` | The ID of the LemonSlice agent. |
+  | `agent_prompt` | *(Optional)* A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, "feel excited" or "look sad") rather than precise or deterministic actions. |
+  | `agent_idle_prompt` | *(Optional)* A high-level system prompt that influences the avatar's movements, expressions, and emotional demeanor during the idle state. |
+  | `idle_timeout` | *(Optional)* Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout. |
   | `response_done_timeout` | *(Optional)* Time in seconds to wait without receiving new audio bytes before marking the response as complete. Some TTS models do not send an end response event, or do not send it in a timely manner, after transmitting all audio bytes. This parameter enables detection of response completion when such events are missing or delayed. |
   
   <Note>JavaScript parameters use camelCase. For example: `agent_image_url` becomes `agentImageUrl`.</Note>

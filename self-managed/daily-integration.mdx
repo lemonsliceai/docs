@@ -40,7 +40,7 @@ Before integrating LemonSlice with Pipecat, ensure you have the following:
   <Step title="Create the LemonSlice transport layer">
     Create an instance of `LemonSliceTransport` by providing your bot name, LemonSlice API key, session request, and additional parameters.
 
-    ```python {6-10, 19-31}
+    ```python {6-10, 14-21}
     import os
     import sys
     import aiohttp
@@ -59,12 +59,7 @@ Before integrating LemonSlice with Pipecat, ensure you have the following:
                 api_key=os.getenv("LEMONSLICE_API_KEY"),
                 session=session,
                 session_request=LemonSliceNewSessionRequest(
-                    agent_image_url="...,
-                ),
-                params=LemonSliceParams(
-                    audio_in_enabled=True,
-                    audio_out_enabled=True,
-                    microphone_out_enabled=False,
+                    agent_image_url="...",
                 ),
             )
 
@@ -78,25 +73,19 @@ Before integrating LemonSlice with Pipecat, ensure you have the following:
     | `api_key` | LemonSlice API key for authentication. |
     | `session` | An `aiohttp.ClientSession` for making async HTTP requests. |
     | `session_request` | Session creation parameters. See `LemonSliceNewSessionRequest` below. |
-    | `params` | *(Optional)* Transport configuration. See `LemonSliceParams` below. |
+    | `params` | *(Optional)* Transport configuration. |
 
     Parameters for `LemonSliceNewSessionRequest`. Either `agent_id` or `agent_image_url` is required.
     | Parameter | Description |
     | --------- | ----------- |
-    | `agent_image_url` | A URL to an avatar image to use. |
-    | `agent_id` | The ID of the LemonSlice agent. |
+    | `agent_image_url` | A URL to an avatar image to use. Provide either agent_id or agent_image_url, not both. |
+    | `agent_id` | The ID of the LemonSlice agent. Provide either agent_id or agent_image_url, not both. |
     | `agent_prompt` | *(Optional)* A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor during the talking state. |
     | `agent_idle_prompt` | *(Optional)* A high-level system prompt that influences the avatar's movements, expressions, and emotional demeanor during the idle state. |
-    | `idle_timeout` | *(Optional)* Idle timeout in seconds. |
+    | `idle_timeout` | *(Optional)* Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout. |
     | `daily_room_url` | *(Optional)* Daily room URL to use. If not provided, LemonSlice will create a new room. |
     | `daily_token` | *(Optional)* Daily token for authenticating with the room. |
 
-    Parameters for `LemonSliceParams`:
-    | Parameter | Default | Description |
-    | --------- | ------- | ----------- |
-    | `audio_in_enabled` | `True` | Whether to enable audio input from participants. |
-    | `audio_out_enabled` | `True` | Whether to enable audio output to participants. |
-    | `microphone_out_enabled` | `False` | Whether to enable microphone output track. |
   </Step>
 
   <Step title="Insert the LemonSlice transport layer into the pipeline">
@@ -126,7 +115,7 @@ Before integrating LemonSlice with Pipecat, ensure you have the following:
             )
     ```
 
-    <Note>The LemonSlice avatar participant is automatically filtered out from `on_client_connected` and `on_client_disconnected` events. Only human participant connections trigger the event handlers.</Note>
+    <Note>The LemonSlice avatar participant is automatically filtered out from `transport.on_client_connected` and `transport.on_client_disconnected` events. Only human participant connections trigger these event handlers.</Note>
 
   </Step>
 
