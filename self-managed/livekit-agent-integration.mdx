@@ -37,10 +37,10 @@ This section includes a basic usage example and some reference material. For lin
     <CodeGroup>
     ```shell PYTHON
     # When using PIP
-    pip install "livekit-agents[lemonslice]~=1.3"
+    pip install "livekit-agents[lemonslice]"
 
     # When using UV
-    uv add "livekit-plugins-lemonslice~=1.3"
+    uv add "livekit-agents[lemonslice]"
     ```
     ```shell NODE.JS
     pnpm add @livekit/agents-plugin-lemonslice
@@ -109,23 +109,32 @@ await session.start(
 </CodeGroup>
 
   Parameters for `lemonslice.AvatarSession`. Either `agent_image_url` or `agent_id` is required.
-  | Parameter         | Description                                                                                                                    |
-  | ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-  | `agent_image_url` | A URL to an agent image to use.                                                                                                |
-  | `agent_id`        | The ID of the LemonSlice agent.                                                                                                |
-  | `agent_prompt`    | *(Optional)* A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, "feel excited" or "look sad") rather than precise or deterministic actions.                                                   |
-  | `idle_timeout`    | *(Optional)* Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout. |
+  | Parameter | Description |
+  | --------- | ----------- |
+  | `agent_image_url` | A URL to an agent image to use. |
+  | `agent_id` | The ID of the LemonSlice agent. |
+  | `agent_prompt` | *(Optional)* A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, "feel excited" or "look sad") rather than precise or deterministic actions. |
+  | `agent_idle_prompt` | *(Optional)* A high-level system prompt that influences the avatar's movements, expressions, and emotional demeanor during the idle state. |
+  | `idle_timeout` | *(Optional)* Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout. |
+  | `response_done_timeout` | *(Optional)* Time in seconds to wait without receiving new audio bytes before marking the response as complete. Some TTS models do not send an end response event, or do not send it in a timely manner, after transmitting all audio bytes. This parameter enables detection of response completion when such events are missing or delayed. |
   
   <Note>JavaScript parameters use camelCase. For example: `agent_image_url` becomes `agentImageUrl`.</Note>
+  
+  <Note>
+  When using the [**Gemini Live S2S**](https://docs.livekit.io/agents/models/realtime/plugins/gemini/) model for realtime interactions, set `response_done_timeout=0.5` to handle end of responses correctly.
+  
+  If you encounter stutters or glitches with any other TTS, please contact support@lemonslice.com.
+  </Note>
   
   </Step>
   <Step title="Preview">
     Preview the avatar in the [Agents Playground](https://docs.livekit.io/agents/start/playground.md) or a frontend [starter app](https://docs.livekit.io/agents/start/frontend.md#starter-apps) that you build.
   </Step>
   <Step title="Shutdown the LiveKit room">
-    Gracefully shut down the LiveKit aent to properly terminate the LemonSlice avatar session.
-    1. Call `ctx.room.disconnect()` to close the LiveKit room connection.
-    2. Call `ctx.shutdown()` to stop the Agent's JobContext if you don't want to shutdown the LiveKit room.
+    Gracefully shut down the LiveKit room, LiveKit agent, and/or LemonSlice avatar session:
+    1. Call `ctx.room.disconnect()` to close the LiveKit room connection which will end the LemonSlice avatar session.
+    2. Call `ctx.shutdown()` to stop the Agent's JobContext and the LemonSlice avatar session if you don't want to shutdown the LiveKit room.
+    3. Call the [session control endpoint](/api-reference/control-session) with the `terminate` event to shutdown only the LemonSlice avatar without shutting down the LiveKit room or agent.
     
     Where `ctx` is LiveKit's `agents.JobContext` defined by the function annotated with `@server.rtc_session()`
     ```python
@@ -135,7 +144,7 @@ await session.start(
     ```
     
 
-    <Warning>If the LiveKit room is not explicitly shut down, the LemonSlice session will remain active until the configured idle timeout is reached or the 30-minute maximum session duration expires.</Warning>
+    <Warning>If the LemonSlice session is not shut down, the LemonSlice session will remain active until the configured idle timeout is reached or the 30-minute maximum session duration expires.</Warning>
   </Step>
 </Steps>
 

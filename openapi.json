@@ -263,7 +263,7 @@
     "/liveai/sessions/{session_id}": {
       "get": {
         "summary": "Get session",
-        "description": "Retrieves the current status of a session.",
+        "description": "Retrieves the current status of an agent session. When the session is completed, returns additional metadata about the session.",
         "operationId": "getSession",
         "parameters": [
           {
@@ -278,7 +278,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Session status retrieved successfully.",
+            "description": "Session status retrieved successfully. Returns basic status for all states. When completed, includes the total cost in credits.",
             "content": {
               "application/json": {
                 "schema": {
@@ -288,6 +288,10 @@
                       "type": "string",
                       "enum": ["QUEUED", "ACTIVE", "COMPLETED", "TIMED_OUT", "FAILED"],
                       "description": "Current status of the session:\n\n- **QUEUED**: session is waiting for a GPU container. Typically completes in seconds when warm containers are available. If all warm containers are in use, a cold start is required which may take up to 2.5 minutes.\n- **ACTIVE**: agent is live.\n- **COMPLETED**: session ended successfully.\n- **TIMED_OUT**: GPU container timed out.\n- **FAILED**: session ended with an error."
+                    },
+                    "cost": {
+                      "type": "integer",
+                      "description": "Number of credits used for this session. Only returned when session_status is COMPLETED."
                     }
                   },
                   "required": ["session_status"]
@@ -308,7 +312,8 @@
                   "completed": {
                     "summary": "Session completed",
                     "value": {
-                      "session_status": "COMPLETED"
+                      "session_status": "COMPLETED",
+                      "cost": 10
                     }
                   },
                   "timed_out": {
@@ -362,6 +367,317 @@
                 },
                 "example": {
                   "detail": "Session not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                },
+                "example": {
+                  "detail": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveai/sessions/{session_id}/control": {
+      "post": {
+        "summary": "Control session",
+        "description": "Send a control event to an active session.",
+        "operationId": "controlSession",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "The ID of the session to control.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { 
+                    "$ref": "#/components/schemas/UpdateImageEvent", 
+                    "title": "Update Image",
+                    "description": "Update the avatar's base image with a new image. This resets the model, so any audio currently playing will be cut off — best called when the avatar is silent. The image swap takes up to 5 seconds."
+                  },
+                  { 
+                    "$ref": "#/components/schemas/TerminateEvent", 
+                    "title": "Terminate",
+                    "description": "Immediately shuts down the LemonSlice avatar and removes it from the WebRTC room."
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "event",
+                  "mapping": {
+                    "update-image": "#/components/schemas/UpdateImageEvent",
+                    "terminate": "#/components/schemas/TerminateEvent"
+                  }
+                }
+              },
+              "examples": {
+                "update_image": {
+                  "summary": "Swap the avatar image",
+                  "description": "Replace the avatar's base image.",
+                  "value": {
+                    "event": "update-image",
+                    "image_url": "https://example.com/avatar.jpg"
+                  }
+                },
+                "terminate": {
+                  "summary": "Terminate session",
+                  "value": {
+                    "event": "terminate"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Control event accepted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid event or missing required fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "image_url required for update-image event"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Invalid API key"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Session not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Session not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                },
+                "example": {
+                  "detail": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liveai/rooms/{room_id}": {
+      "get": {
+        "summary": "Get room",
+        "description": "Retrieves the current status of a room session. When the session is completed, returns additional metadata about the room.",
+        "operationId": "getRoomStatus",
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "description": "The ID of the room to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Room status retrieved successfully. Returns basic status for all states. When completed, includes additional metadata such as cost, timestamps, end reason, and conversation messages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "session_status": {
+                      "type": "string",
+                      "enum": ["QUEUED", "ACTIVE", "COMPLETED", "TIMED_OUT", "FAILED"],
+                      "description": "Current status of the session:\n\n- **QUEUED**: session is waiting for a GPU container. Typically completes in seconds when warm containers are available. If all warm containers are in use, a cold start is required which may take up to 2.5 minutes.\n- **ACTIVE**: agent is live.\n- **COMPLETED**: session ended successfully.\n- **TIMED_OUT**: GPU container timed out.\n- **FAILED**: session ended with an error."
+                    },
+                    "cost": {
+                      "type": "integer",
+                      "description": "Number of credits used for this session. Only returned when session_status is COMPLETED."
+                    },
+                    "llm_ended_reason": {
+                      "type": "string",
+                      "description": "Reason the LLM session ended. Only returned when session_status is COMPLETED."
+                    },
+                    "llm_started_at": {
+                      "type": "integer",
+                      "description": "Unix timestamp when the LLM session started. Only returned when session_status is COMPLETED."
+                    },
+                    "llm_ended_at": {
+                      "type": "integer",
+                      "description": "Unix timestamp when the LLM session ended. Only returned when session_status is COMPLETED."
+                    },
+                    "messages": {
+                      "type": "array",
+                      "description": "Array of messages exchanged during the session. Only returned when session_status is COMPLETED.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "role": {
+                            "type": "string",
+                            "enum": ["user", "agent"],
+                            "description": "Role of the message sender."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Content of the message."
+                          },
+                          "seconds_from_start": {
+                            "type": "integer",
+                            "description": "Number of seconds from the start of the session when this message was sent."
+                          }
+                        },
+                        "required": ["role", "message", "seconds_from_start"]
+                      }
+                    }
+                  },
+                  "required": ["session_status"]
+                },
+                "examples": {
+                  "queued": {
+                    "summary": "Room is queued",
+                    "value": {
+                      "session_status": "QUEUED"
+                    }
+                  },
+                  "active": {
+                    "summary": "Room is active",
+                    "value": {
+                      "session_status": "ACTIVE"
+                    }
+                  },
+                  "completed": {
+                    "summary": "Room completed with full details",
+                    "value": {
+                      "session_status": "COMPLETED",
+                      "cost": 10,
+                      "llm_ended_reason": "Client disconnected: 1000",
+                      "llm_started_at": 1772746376,
+                      "llm_ended_at": 1772746535,
+                      "messages": [
+                        {
+                          "role": "user",
+                          "message": "hello",
+                          "seconds_from_start": 0
+                        },
+                        {
+                          "role": "agent",
+                          "message": "Hello! How can I assist you today?",
+                          "seconds_from_start": 10
+                        }
+                      ]
+                    }
+                  },
+                  "timed_out": {
+                    "summary": "Room timed out",
+                    "value": {
+                      "session_status": "TIMED_OUT"
+                    }
+                  },
+                  "failed": {
+                    "summary": "Room failed",
+                    "value": {
+                      "session_status": "FAILED"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Invalid API key"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Room does not belong to this account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Room does not belong to this account"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Room not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "detail": "Room not found"
                 }
               }
             }
@@ -504,6 +820,36 @@
             "description": "The ID of the session.",
             "type": "string",
             "example": "livekit-3f7c2b91-9e1f-4a6a-8e9d-2c7c3e7d9b5a"
+          }
+        }
+      },
+      "UpdateImageEvent": {
+        "type": "object",
+        "required": ["event", "image_url"],
+        "properties": {
+          "event": {
+            "type": "string",
+            "const": "update-image",
+            "default": "update-image",
+            "description": "update-image"
+          },
+          "image_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the new avatar image. Must be publicly accessible.",
+            "example": "https://example.com/avatar.jpg"
+          }
+        }
+      },
+      "TerminateEvent": {
+        "type": "object",
+        "required": ["event"],
+        "properties": {
+          "event": {
+            "type": "string",
+            "const": "terminate",
+            "default": "terminate",
+            "description": "terminate"
           }
         }
       },

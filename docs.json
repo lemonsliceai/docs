@@ -58,7 +58,8 @@
           {
             "group": "Endpoints",
             "pages": [
-              "openapi.json POST /liveai/rooms"
+              "openapi.json POST /liveai/rooms",
+              "openapi.json GET /liveai/rooms/{room_id}"
             ]
           }
         ]
@@ -84,7 +85,8 @@
             "group": "Endpoints",
             "pages": [
               "openapi.json POST /liveai/sessions",
-              "openapi.json GET /liveai/sessions/{session_id}"
+              "openapi.json GET /liveai/sessions/{session_id}",
+              "openapi.json POST /liveai/sessions/{session_id}/control"
             ]
           }
         ]
