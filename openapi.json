@@ -759,13 +759,23 @@
           "agent_prompt": {
             "description": "A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, 'feel excited' or 'look sad') rather than precise or deterministic actions.",
             "type": "string",
-            "example": "Be upbeat and concise."
+            "example": "a happy person"
+          },
+          "agent_idle_prompt": {
+            "description": "A high-level system prompt that influences the avatar's movements, expressions, and emotional demeanor during the idle state.",
+            "type": "string",
+            "example": "a serious person"
           },
           "idle_timeout": {
             "description": "Idle timeout in seconds. Defaults to 60. If a negative number is provided, the session will have no idle timeout.",
             "type": "integer",
             "default": 60,
             "example": 60
+          },
+          "response_done_timeout": {
+            "description": "Time in seconds to wait without receiving new audio bytes before marking the response as complete. Some TTS models do not send an end response event, or do not send it in a timely manner. This parameter enables detection of response completion when such events are missing or delayed.",
+            "type": "number",
+            "example": 0.5
           },
           "transport_type": {
             "description": "The interface type for how the audio is sent and how the A/V is returned.",
