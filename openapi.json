@@ -141,7 +141,7 @@
                   "summary": "Create a session using an agent_image_url",
                   "value": {
                     "agent_image_url": "https://cdn.lemonslice.com/agents/custom_agent.png",
-                    "agent_prompt": "A friendly and smiling person.",
+                    "agent_prompt": "a person talking",
                     "transport_type": "livekit",
                     "properties": {
                       "livekit_url": "wss://lemonslice-pb123.livekit.cloud",
@@ -759,11 +759,13 @@
           "agent_prompt": {
             "description": "A high-level system prompt that subtly influences the avatar's movements, expressions, and emotional demeanor. This prompt is best used to suggest general affect or demeanor (for example, 'feel excited' or 'look sad') rather than precise or deterministic actions.",
             "type": "string",
-            "example": "a happy person"
+            "default": "a person talking",
+            "example": "a person talking"
           },
           "agent_idle_prompt": {
             "description": "A high-level system prompt that influences the avatar's movements, expressions, and emotional demeanor during the idle state.",
             "type": "string",
+            "default": "a serious person",
             "example": "a serious person"
           },
           "idle_timeout": {
@@ -780,7 +782,7 @@
           "transport_type": {
             "description": "The interface type for how the audio is sent and how the A/V is returned.",
             "type": "string",
-            "enum": ["livekit"],
+            "enum": ["livekit", "daily"],
             "example": "livekit"
           },
           "properties": {
