@@ -29,6 +29,18 @@ The reference image is the foundation of how your video agent looks and talks. O
   ![Expressionand Pose](/images/ExpressionandPose.png)
 </Frame>
 
+**Drive simple animations from a single image.** Our model intelligently animates simple scenes using the reference image, the agent prompt, and the idle prompt. 
+
+<Frame>
+  ![Background](/images/Background.png)
+</Frame>
+
+Example idle prompts for the images: 
+
+- Left: Waves are moving in the background.
+- Center: Person driving and talking. Her hair is blowing in the wind. The background is moving as the car is moving.
+- Right: Person talking holding a bowl. Steam is coming out of the bowl
+
 **For non-human or cartoon characters, use an image with the mouth slightly open.** This will show the model how you want the mouth to animate.
 
 <Frame>
@@ -39,4 +51,4 @@ The reference image is the foundation of how your video agent looks and talks. O
 
 **Voice intonation impacts facial expression.** For example, choosing a voice with an angry intonation will yield an angry expression. Likewise, a monotonous voice will produce a neutral facial expression.
 
-**If your video agent's mouth looks off, choose another voice.** Some voices work better than others. 
+**If your video agent's mouth looks off, choose another voice.** Some voices work better than others.
