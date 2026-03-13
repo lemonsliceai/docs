@@ -1,0 +1,35 @@
+---
+title: "Designing compelling video agents"
+---
+
+## Reference image
+
+The reference image that you select for the avatar is the foundation of how your video agent looks and talks. Our model picks up on every detail of the image and uses it to infer micro-expressions, poses, and even background motion. Here's some things about images that we think drives quality video agents.
+
+<Info>
+  Iterate on your images in the LemonSlice web app with our built-in AI image editor.
+</Info>
+
+**Larger faces have best facial details.** Make the head as large as possible. If you want to use hand gestures in your avatar, use a half-body portrait while maintaining a relatively large face.
+
+<Frame>
+  ![Large Face](</images/large_face.png>)
+</Frame>
+
+**Don't zoom out too much.** Our model renders every pixel in real time, so focus those pixels on the character, not the background.
+
+<Frame>
+  ![Zoom Level](</images/zoom_level.png>)
+</Frame>
+
+**Use a neutral expression and look directly into the camera.** Your reference image controls the expression and pose of your video agent throughout the call. For example, a reference image of a person looking up may cause the agent to always be looking up.
+
+<Frame>
+  ![Expressionand Pose](/images/ExpressionandPose.png)
+</Frame>
+
+**For non-human or cartoon characters, use an image with the mouth slightly open.** This will show the model how you want the mouth to animate.
+
+<Frame>
+  ![Mouth](/images/Mouth.png)
+</Frame>
