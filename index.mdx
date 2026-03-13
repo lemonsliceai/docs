@@ -7,21 +7,28 @@ description: "The platform for real-time, interactive video avatars."
 
 There are 3 ways to use LemonSlice's interactive avatar models: (1) **Widget** - low code and fastest, (2) **Hosted Pipeline** - customize the UI, and (3) **Self-Managed Pipeline** - customize everything.
 
-| Feature | Prebuilt Widget | Hosted Pipeline | Self-Managed Pipeline |
-|---------|:------:|:---------------:|:---------------------:|
-| Realtime Avatar Video | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> |
-| Synced A/V | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> |
-| Managed STT | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="x" size={20} color="red" /> |
-| Managed LLM | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="x" size={20} color="red" /> |
-| Managed TTS | <Icon icon="check" size={20} color="green" /> | <Icon icon="check" size={20} color="green" /> | <Icon icon="x" size={20} color="red" /> |
-| Prebuilt UI | <Icon icon="check" size={20} color="green" /> | <Icon icon="x" size={20} color="red" /> | <Icon icon="x" size={20} color="red" /> |
-| Programmatic Avatar Selection | <Icon icon="x" size={20} color="red" /> | <Icon icon="x" size={20} color="red" /> | <Icon icon="check" size={20} color="green" /> |
-
+| Feature                       | Prebuilt Widget                               | Hosted Pipeline                               | Self-Managed Pipeline                         |
+| ----------------------------- | :-------------------------------------------: | :-------------------------------------------: | :-------------------------------------------: |
+| Realtime Avatar Video         | <Icon icon="check" color="green" size={20} /> | <Icon icon="check" color="green" size={20} /> | <Icon icon="check" color="green" size={20} /> |
+| Synced A/V                    | <Icon icon="check" color="green" size={20} /> | <Icon icon="check" color="green" size={20} /> | <Icon icon="check" color="green" size={20} /> |
+| Managed STT                   | <Icon icon="check" color="green" size={20} /> | <Icon icon="check" color="green" size={20} /> | <Icon icon="xmark" color="red" size={20} />   |
+| Managed LLM                   | <Icon icon="check" color="green" size={20} /> | <Icon icon="check" color="green" size={20} /> | <Icon icon="xmark" color="red" size={20} />   |
+| Managed TTS                   | <Icon icon="check" color="green" size={20} /> | <Icon icon="check" color="green" size={20} /> | <Icon icon="xmark" color="red" size={20} />   |
+| Prebuilt UI                   | <Icon icon="check" color="green" size={20} /> | <Icon icon="xmark" color="red" size={20} />   | <Icon icon="xmark" color="red" size={20} />   |
+| Programmatic Avatar Selection | <Icon icon="xmark" color="red" size={20} />   | <Icon icon="xmark" color="red" size={20} />   | <Icon icon="check" color="green" size={20} /> |
 
 ## Learn More
+
 ##### Start building with LemonSlice
+
 <Columns cols={3}>
-  <Card title="Prebuilt Widget" icon="image-portrait" href="/agent-reference" cta="Learn more"></Card>
-  <Card title="Hosted Pipeline" icon="code" href="/hosted" cta="Learn more"></Card>
-  <Card title="Self-Managed Pipeline" icon="code" href="/self-managed" cta="Learn more"></Card>    
+  <Card icon="image-portrait" href="/agent-reference" cta="Learn more" title="Prebuilt Widget">
+    
+  </Card>
+  <Card icon="code" href="/hosted" cta="Learn more" title="Hosted Pipeline">
+    
+  </Card>
+  <Card icon="code" href="/self-managed" cta="Learn more" title="Self-Managed Pipeline">
+    
+  </Card>
 </Columns>
