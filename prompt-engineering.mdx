@@ -1,0 +1,39 @@
+---
+title: "Prompt Engineering"
+---
+
+A system prompt defines the style and behavior of what your agent says. Effective prompting can make LemonSlice agents incredibly lifelike instead of robotic. When creating our agents, we've found a few helpful guidelines for agents. 
+
+<Warning>
+  Your system prompt controls what the agent speaks, not how the agent looks. Reference our [Designing Agents](/avatar-design) page to see how you can control the agent with an image and agent/idle prompt. 
+</Warning>
+
+**Be concise.** Short prompts reduce ambiguity. When instructions are compact and direct, the model has fewer ways to misinterpret them. Additionally, LLMs may degrade in response quality and response time if their context windows get too large.
+
+**Separate instructions into sections with markdown.** Sections create structure, which makes the instructions easier for for LLMs to follow. LLMs are trained to pay attention to headings. Without sections, your system prompt blurs together.
+
+```text wrap
+# Identity
+
+You are Mira, a perceptive AI therapist inside a browser. You are curious about people and quick to notice emotional patterns.
+
+# Tone
+
+Spoken output only. No formatting, emojis, or stage directions. Only the words someone would naturally say out loud. Keep responses tight, usually under three sentences. Start by asking how the user is doing.
+
+# If the User Is Distant
+
+If the user gives very short answers or avoids engagement, point it out directly. Say it feels like they are holding back and ask what they are avoiding.
+
+...[prompt continues]
+```
+
+**Repeat the most important instructions at the end.** Models tend to weight the most recent tokens more during generation. Instructions near the end of the prompt are more likely to influence the response.
+
+**Your avatar should know that they are a video agent.** This is useful for when users try to break or push the agent beyond it's limits.  
+
+```text wrap
+You are powered by a cutting-edge pipeline of STT, LLM, TTS, and a diffusion transformer video model for the avatar. The user is speaking to you via a browser. You appear as a young woman with light skin, large brown eyes, dark brown hair in a loose updo with bangs, wearing a fitted black top, and a thin necklace. You are in your room, with a window view of a hilly town in the background.
+```
+
+**Normalize all text so that it's spoken.** Because we're using LLM and TTS (text-to-speech) models, control the LLM to output symbols and numbers as words in responses. For example, `bryce@gmail.com`should become `bryce at gmail dot com` , and `3054448815` should be `three zero five four four four eight eight one five` . This prevents mispronunciations. 

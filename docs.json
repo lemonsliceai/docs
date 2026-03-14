@@ -13,9 +13,10 @@
       {
         "tab": "Overview",
         "pages": [
-              "index",
-              "avatar-design"
-            ]
+          "index",
+          "avatar-design",
+          "prompt-engineering"
+        ]
       },
       {
         "tab": "Widget",
